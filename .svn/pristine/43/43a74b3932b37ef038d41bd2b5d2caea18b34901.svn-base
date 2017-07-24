@@ -1,0 +1,45 @@
+package com.mobifilia.monitormymortgage.Fragments;
+
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.mobifilia.monitormymortgage.MainActivity;
+import com.mobifilia.monitormymortgage.R;
+
+public class RatesFragment extends Fragment {
+    TextView currentRateTextView,actualCurrentRateTextView,lastUpdateTextView,actualLastUpdateTextView,nextUpdateTextView,actualNextUpdateTextView;
+    Typeface font_helvetica;
+    public RatesFragment() {
+        // Required empty public constructor
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((MainActivity) getActivity()).setTitle(R.string.rates_fragment);
+        font_helvetica=Typeface.createFromAsset(getActivity().getAssets(),"HelveticaNeue-Regular.ttf");
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootview=inflater.inflate(R.layout.fragment_rates, container, false);
+        currentRateTextView=(TextView)rootview.findViewById(R.id.currentRateTextView);
+        currentRateTextView.setTypeface(font_helvetica);
+        actualCurrentRateTextView=(TextView)rootview.findViewById(R.id.actualCurrentRateTextView);
+        actualCurrentRateTextView.setTypeface(font_helvetica);
+        lastUpdateTextView=(TextView)rootview.findViewById(R.id.lastUpdateTextView);
+        lastUpdateTextView.setTypeface(font_helvetica);
+        actualLastUpdateTextView=(TextView)rootview.findViewById(R.id.actualLastUpdateTextView);
+        actualLastUpdateTextView.setTypeface(font_helvetica);
+        nextUpdateTextView=(TextView)rootview.findViewById(R.id.nextUpdateTextView);
+        nextUpdateTextView.setTypeface(font_helvetica);
+        actualNextUpdateTextView=(TextView)rootview.findViewById(R.id.actualNextUpdateTextView);
+        actualNextUpdateTextView.setTypeface(font_helvetica);
+        return rootview;
+    }
+}

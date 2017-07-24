@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff">
+
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/titleTextView"
+        android:gravity="center"
+        android:text="Sample"
+        android:inputType="textCapWords"
+        android:textColor="@color/colorM3signin"
+        android:background="@color/colorPrimary"
+        android:scaleType="fitCenter" />
+    <LinearLayout
+        android:layout_below="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/color_standard_green"/>
+
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/text_dialog"
+        android:layout_below="@+id/titleTextView"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="13sp"
+        android:textColor="#666666"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal" />
+
+
+    <RadioGroup
+        android:id="@+id/ContactPreferncesRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleTextView"
+        android:orientation="horizontal"
+      android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_centerInParent="true">
+
+        <CheckBox android:id="@+id/radioButtonPhn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:checked="false"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:button="@drawable/radiobutton"
+            />
+
+        <CheckBox android:id="@+id/radioButtonEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="8dp"
+            android:button="@drawable/radiobutton"
+            />
+
+    </RadioGroup>
+
+    <com.mobifilia.custom.IconButton
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Confirm"
+        android:textSize="14sp"
+        android:inputType="textCapWords"
+        android:id="@+id/btn_dialog"
+
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@drawable/button_rounded"
+        android:textColor="#80A445"
+        android:layout_below="@+id/ContactPreferncesRadioGroup"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/errorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sample"
+        android:layout_below="@+id/btn_dialog"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/color_broker_responce_pending"
+        android:textSize="12sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="invisible"
+
+        />
+
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorM3signin"
+        android:id="@+id/closeButton"
+        android:text="@string/alert_close_button"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:paddingRight="14dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="right"/>
+
+</RelativeLayout>
+

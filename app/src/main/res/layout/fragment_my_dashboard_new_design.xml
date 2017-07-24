@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:layout_weight="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutListAvailable"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/xhdpi">
+
+
+    <ListView
+        android:id="@+id/mortgageList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="10dp"
+        android:divider="@null"
+        android:dividerHeight="10dp"
+        android:drawSelectorOnTop="false"
+        android:scrollbars="vertical"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="10dp"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <com.app.custom.CustomTextView
+            android:id="@+id/startTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="40dp"
+            android:text="@string/how_would_you_like_to_start"
+            android:textColor="@color/colorM3signin"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+        <LinearLayout
+            android:id="@+id/calloutLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:visibility="gone">
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/calloutImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:src="@drawable/calloutcentre" />
+
+                <com.app.custom.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginBottom="4dp"
+
+                    android:text="@string/tell_us_about_mortgage"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameLayoutSecond"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/calloutImageViewSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:src="@drawable/calloutcentre" />
+
+                <com.app.custom.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/tell_us_about_requirments"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_notification_settings"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <com.app.custom.IconButton
+                android:id="@+id/btn_add_mortgage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_rounded"
+                android:gravity="center"
+                android:text="@string/add_mortgage"
+                android:textColor="#80A445"
+                android:textSize="16sp" />
+
+            <com.app.custom.IconButton
+                android:id="@+id/btn_request_quote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_rounded"
+                android:gravity="center"
+                android:text="@string/request_quote"
+                android:textColor="#80A445"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <com.app.custom.IconButton
+            android:id="@+id/btn_notification_settings"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/button_rounded"
+            android:text="@string/notification_setting"
+            android:textColor="#80A445"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</RelativeLayout>
+
+

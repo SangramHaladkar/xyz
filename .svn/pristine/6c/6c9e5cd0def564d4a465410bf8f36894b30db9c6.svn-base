@@ -1,0 +1,144 @@
+package com.mobifilia.monitormymortgage.DataHolderClasses;
+
+/**
+ * Created by Sangram on 06/05/16.
+ */
+public class MortgageDetailsHolder {
+    String amortizedBalance;
+    String interestRate;
+    String payment;
+    String paymentFrequency;
+    String maturityDate;
+    String amortization;
+    String term;
+    String status;
+    String type;
+    String postalCode;
+    String creditLineAmt;
+    String mortgageStatus;
+    String updatedAt;
+    String attachmentCount;
+
+    public String getAttachmentCount() {
+        return attachmentCount;
+    }
+
+    public void setAttachmentCount(String attachmentCount) {
+        this.attachmentCount = attachmentCount;
+    }
+
+
+    public String getOpprCreatedDate() {
+        return opprCreatedDate;
+    }
+
+    public void setOpprCreatedDate(String opprCreatedDate) {
+        this.opprCreatedDate = opprCreatedDate;
+    }
+
+    String opprCreatedDate;
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getMortgageStatus() {
+        return mortgageStatus;
+    }
+
+    public void setMortgageStatus(String mortgageStatus) {
+        this.mortgageStatus = mortgageStatus;
+    }
+
+    public String getAmortization() {
+        return amortization;
+    }
+
+    public void setAmortization(String amortization) {
+        this.amortization = amortization;
+    }
+
+    public String getAmortizedBalance() {
+        return amortizedBalance;
+    }
+
+    public void setAmortizedBalance(String amortizedBalance) {
+        this.amortizedBalance = amortizedBalance;
+    }
+
+    public String getCreditLineAmt() {
+        return creditLineAmt;
+    }
+
+    public void setCreditLineAmt(String creditLineAmt) {
+        this.creditLineAmt = creditLineAmt;
+    }
+
+    public String getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(String interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public String getMaturityDate() {
+        return maturityDate;
+    }
+
+    public void setMaturityDate(String maturityDate) {
+        this.maturityDate = maturityDate;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
+    public String getPaymentFrequency() {
+        return paymentFrequency;
+    }
+
+    public void setPaymentFrequency(String paymentFrequency) {
+        this.paymentFrequency = paymentFrequency;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+}

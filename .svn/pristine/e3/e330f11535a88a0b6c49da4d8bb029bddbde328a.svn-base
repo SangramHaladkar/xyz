@@ -1,0 +1,90 @@
+package com.mobifilia.monitormymortgage.Adapters;
+
+import android.app.Activity;
+import android.content.Context;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.mobifilia.monitormymortgage.DataHolderClasses.NotificationHolder;
+import com.mobifilia.monitormymortgage.R;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Created by Sangram on 22/05/16.
+ */
+public class NotificationAdapter extends BaseAdapter {
+    Context context;
+    private Activity activity;
+    private String[] data;
+    List<NotificationHolder> notificationHolderList;
+
+    public NotificationAdapter(Context context, List<NotificationHolder> notificationHolderList) {
+        this.context = context;
+        this.notificationHolderList = notificationHolderList;
+    }
+
+    @Override
+    public int getCount() {
+        return this.notificationHolderList.size();
+    }
+
+    static class ViewHolderItem {
+        TextView mortgageNameTextView;
+        TextView opportunityNameTextView;
+        TextView updatedAtTextView;
+        TextView navigationTextView;
+    }
+
+
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        NotificationHolder notificationHolder=this.notificationHolderList.get(position);
+        ViewHolderItem viewHolderItem=new ViewHolderItem();
+        if(convertView==null)
+        {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.notification_list_cell, null);
+            viewHolderItem.mortgageNameTextView=(TextView)convertView.findViewById(R.id.mortgageNameTextView);
+            viewHolderItem.opportunityNameTextView = (TextView) convertView.findViewById(R.id.opportunityNameTextView);
+            viewHolderItem.updatedAtTextView = (TextView) convertView.findViewById(R.id.updatedAtTextView);
+            viewHolderItem.navigationTextView=(TextView)convertView.findViewById(R.id.navigationTextView);
+            convertView.setTag(viewHolderItem);
+        }
+
+        else {
+            viewHolderItem = (ViewHolderItem) convertView.getTag();
+        }
+        viewHolderItem.mortgageNameTextView.setText(notificationHolder.getMortgageTitle());
+        viewHolderItem.opportunityNameTextView.setText(notificationHolder.getOpportunityTitle());
+        viewHolderItem.updatedAtTextView.setText(convertMilliSecondsToDate(notificationHolder.getOpporCreatedDate()));
+        return convertView;
+
+    }
+
+
+
+
+    public String convertMilliSecondsToDate(String milliseconds) {
+        long millisecond = Long.parseLong(milliseconds);
+        String dateString = DateFormat.format("MMM d,yyyy", new Date(millisecond)).toString();
+        Log.v("TAG", dateString);
+        return dateString;
+    }
+}

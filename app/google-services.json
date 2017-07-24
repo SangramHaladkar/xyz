@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1071183795665",
+    "firebase_url": "https://monitor-my-mortgage.firebaseio.com",
+    "project_id": "monitor-my-mortgage",
+    "storage_bucket": "monitor-my-mortgage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071183795665:android:f8ba3665c3d2256a",
+        "android_client_info": {
+          "package_name": "com.app.monitormymortgage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071183795665-g0tr8imqlscg4stmsmpj3uko6i04pt2s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQfPx41BWi28XA0lMzMM6xFQqm8MISYOg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

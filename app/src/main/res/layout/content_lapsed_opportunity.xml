@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/xxhdpi"
+    android:layout_height="match_parent"
+   >
+
+    <com.app.custom.IconTextView
+        android:id="@+id/noPassedOpprTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="No Passed Opportunities to display."
+        android:textColor="@color/color_broker_responce_pending"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/passedOpportunityList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:divider="@null"
+        android:dividerHeight="10dp"
+        android:drawSelectorOnTop="false"
+        android:scrollbars="vertical"
+
+        />
+
+
+    </LinearLayout>
+

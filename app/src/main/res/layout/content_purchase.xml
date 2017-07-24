@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/stepOneLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- Add mortgage title Layout  -->
+        <LinearLayout
+            android:id="@+id/linearLayoutChildTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/textview_border"
+            android:orientation="vertical">
+
+            <com.app.custom.CustomTextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/title_add_mortgage_new"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+            <com.app.custom.IconEditText
+                android:id="@+id/actualTitleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:inputType="textCapWords|textNoSuggestions"
+                android:maxLength="60"
+                android:maxLines="1"
+                android:paddingLeft="2dp"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+        <!-- Add Mortgage type -toggle Layout  -->
+
+        <!-- Add Mortgage currency & property postal code Layout  -->
+        <LinearLayout
+            android:id="@+id/linearLayoutCurrencyAndPostalCode"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutChildCurrency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border">
+
+                <com.app.custom.CustomTextView
+                    android:id="@+id/requirmentDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/requirment_date"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                <RelativeLayout
+                    android:id="@+id/selectCurrencyRelativeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/requirmentDateTextView">
+
+                    <com.app.custom.CustomTextView
+                        android:id="@+id/actualStartDateTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/startDateTextView"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/select_date"
+                        android:textColor="@color/color_black"
+                        android:textSize="15sp"
+                        app:fontFamily="HelveticaNeue-Regular.ttf" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border"
+                android:orientation="vertical">
+
+                <com.app.custom.CustomTextView
+                    android:id="@+id/paymentFrequencyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/payment_frequency"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                <RelativeLayout
+                    android:id="@+id/selectFrequencyRelativeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/paymentFrequencyTextview">
+
+                    <com.app.custom.CustomTextView
+                        android:id="@+id/paymentFrequencyTwoTextview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/fab_margin"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/select_frequency_hint"
+                        android:textColor="@color/color_black"
+                        android:textSize="14sp"
+                        app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                    <com.app.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:text="{fa-caret-down}"
+                        android:textColor="@color/color_black"
+                        android:textSize="17dp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--Mortgage Type -->
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/relativeLayoutRateIncrease"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@color/colorM3signin">
+
+            <RelativeLayout
+                android:id="@+id/linearLayoutChildRateIncrease"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/textview_border">
+
+                <com.app.custom.CustomTextView
+                    android:id="@+id/mortgageTypeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/mortgage_type_add_mortgage"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                <RadioGroup
+                    android:id="@+id/toggle"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/mortgageTypeTextView"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/pink_out_line"
+                    android:checkedButton="@+id/residential"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/residential"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/toggle_widget_background"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/residential_radio_button"
+                        android:textColor="@color/colorM3signin" />
+
+                    <RadioButton
+                        android:id="@+id/commercial"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/toggle_widget_background"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:selectAllOnFocus="true"
+                        android:text="@string/commercial_radio_button"
+                        android:textColor="@color/colorM3signin" />
+                </RadioGroup>
+
+                <RadioGroup
+                    android:id="@+id/toggle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/toggle"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/pink_out_line"
+                    android:checkedButton="@+id/primaryRadioBtn"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/primaryRadioBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/toggle_widget_background"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/primary_radio_btn"
+                        android:textColor="@color/colorM3signin" />
+
+                    <RadioButton
+                        android:id="@+id/secondryRadioBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/toggle_widget_background"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:selectAllOnFocus="true"
+                        android:text="@string/secondry_radio_button"
+                        android:textColor="@color/colorM3signin" />
+                </RadioGroup>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <!--  Purchase Price Layout  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutChildTotalMortgage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border"
+                android:orientation="vertical">
+
+                <com.app.custom.CustomTextView
+                    android:id="@+id/purchasePriceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/purchase_price"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.app.custom.CustomTextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="$"
+                        android:textColor="@color/color_black"
+                        android:textSize="14sp"
+                        app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                    <com.app.custom.IconEditText
+                        android:id="@+id/purchasePriceEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/textView6"
+                        android:layout_gravity="left"
+                        android:layout_toEndOf="@+id/textView6"
+
+                        android:layout_toRightOf="@+id/textView6"
+                        android:background="@null"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:paddingLeft="2dp"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--Down Payment Amount Layout-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border"
+                android:orientation="vertical">
+
+                <com.app.custom.CustomTextView
+                    android:id="@+id/downPaymentTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="1"
+                    android:text="@string/down_payment_amt"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.app.custom.CustomTextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="$"
+                        android:textColor="@color/color_black"
+                        android:textSize="14sp"
+                        app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                    <com.app.custom.IconEditText
+                        android:id="@+id/downpaymentAmtEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/textView7"
+                        android:layout_gravity="left"
+                        android:layout_toEndOf="@+id/textView7"
+
+                        android:layout_toRightOf="@+id/textView7"
+                        android:background="@null"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:paddingLeft="2dp"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--Term n type-->
+        <LinearLayout
+            android:id="@+id/linearLayoutChildCurrentTermMortgageType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/textview_border"
+            android:orientation="vertical">
+
+            <com.app.custom.CustomTextView
+                android:id="@+id/currentTermTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/term_type"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="#F9F9F9"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:visibility="invisible">
+
+                    <com.app.custom.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/select_term"
+                        app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                    <com.app.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:text="{fa-caret-down}"
+                        android:textColor="@color/color_black" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/selectTermRelativeLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="#F9F9F9"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp">
+
+                    <com.app.custom.CustomTextView
+                        android:id="@+id/currentTermNumberTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/select_term"
+                        app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                    <com.app.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:text="{fa-caret-down}"
+                        android:textColor="@color/color_black" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/selectTypeRelativeLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="#F9F9F9"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp">
+
+                    <com.app.custom.CustomTextView
+                        android:id="@+id/TypeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:text="@string/select_type"
+                        app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                    <com.app.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:text="{fa-caret-down}"
+                        android:textColor="@color/color_black" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--MLS layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutChildCurrentAmortizedMortgageValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <com.app.custom.CustomTextView
+                        android:id="@+id/MLSTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="MLS#"
+                        android:textColor="#666666"
+                        android:textSize="15sp"
+                        app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                    <com.app.custom.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/optional"
+                        android:textSize="10sp"
+                        app:fontFamily="HelveticaNeue-Regular.ttf" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.app.custom.CustomTextView
+                        android:id="@+id/textView5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="$"
+                        android:textColor="@color/color_black"
+                        android:textSize="14sp"
+                        app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                    <com.app.custom.IconEditText
+                        android:id="@+id/MLSEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/textView5"
+                        android:layout_gravity="left"
+                        android:layout_toEndOf="@+id/textView5"
+                        android:layout_toRightOf="@+id/textView5"
+                        android:background="@null"
+                        android:maxLines="1"
+                        android:paddingLeft="2dp"
+                        android:textColor="@color/color_black"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border"
+                android:orientation="vertical">
+
+                <com.app.custom.CustomTextView
+                    android:id="@+id/postalCodeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:maxLines="1"
+                    android:text="@string/property_postal_code"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    app:fontFamily="HelveticaNeue-Regular.ttf" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.app.custom.IconEditText
+                        android:id="@+id/postalCodeEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="12dp"
+                        android:background="@null"
+                        android:editable="false"
+                        android:focusableInTouchMode="false"
+                        android:maxLines="1"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <!--Submit Quote button Layout  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+            <Button
+                android:id="@+id/submitQuoteButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:background="@color/color_standard_green"
+                android:inputType="textCapWords"
+                android:text="@string/submit_for_quote"
+                android:textColor="@color/text_color"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

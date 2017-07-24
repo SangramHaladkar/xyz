@@ -1,0 +1,459 @@
+<resources>
+    <string name="app_name">"\u004D""\u00B3"</string>
+    <string name="help_screen_one">Monitor My Mortgage</string>
+    <string name="SenderId">834063826805</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="fa_photo">{fa-image}</string>
+    <string name="fa_paperclip_mortgage_documents">{fa-paperclip}</string>
+    <string name="fa_angle_right">{fa-angle-right}</string>
+    <string name="okay">Okay</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_m3_signin">Monitor My Mortgage </string>
+    <string name="continue_with">Continue With</string>
+    <string name="facebook">Facebook</string>
+    <string name="username_hint">Email or Phone Number</string>
+    <string name="password_hint">Password</string>
+    <string name="forgot_or_reset_password">Forgot/Reset Password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="new_user">New User?</string>
+    <string name="create_M3_account">Create "\u004D""\u00B3" Account</string>
+    <string name="create_my_account">Create My Account</string>
+    <string name="register_with_facebook">Register with Facebook</string>
+    <string name="fa_facebook">{fa-facebook-official} &#160;&#160;Facebook  </string>
+    <string name="fa_facebook_square">{fa-facebook-square}&#160;&#160;&#160;&#160;&#160;&#160;&#160;Facebook  </string>
+    <string name="alert_close_button">{fa-remove}</string>
+    <string name="fa_info_circle_week">Weak  {fa-info-circle}</string>
+    <string name="fa_info_circle_strong">Strong  {fa-info-circle}</string>
+    <string name="fa_info_circle_very_strong">Very Strong</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_create_new_account">Create My Account</string>
+    <string name="action_icon">M3 Icon</string>
+    <string name="alert_dialog_message">A Mortgage Broker will contact you  by December 10,2015</string>
+    <string name="alert_username_empty">Please enter Email or Phone Number.</string>
+    <string name="alert_password_empty">Please enter Password.</string>
+    <string name="alert_invalid_email">Entered Email or Phone Number or Password is incorrect.</string>
+    <string name="alert_login_successful">Login Successful</string>
+
+    <string name="password_hint_error_message">Password should be at least 8 characters long, with numbers and special characters eg. P@$$worD! instead of password</string>
+
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_confirm_email">Confirm Email</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="hint_postal_code">Postal Code</string>
+    <string name="submit_button">Submit</string>
+    <string name="edit_button">Edit</string>
+    <string name="back_to_dashboard">Back to Dashboard</string>
+    <string name="save_button">Save</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="privacy_policy"><u>Privacy Policy.</u></string>
+    <string name="terms_condition"><u>Terms &amp; Conditions</u></string>
+    <string name="add_mortgage">{fa-plus-circle}&#160;&#160;Add Mortgage</string>
+    <string name="request_quote">{fa-file-text-o}&#160;&#160;Request a Quote</string>
+    <string name="notification_setting">{fa-gear}&#160;&#160; Notification Settings</string>
+    <string name="current_rate">Current Rate</string>
+    <string name="last_update">Last Update</string>
+    <string name="next_update">Next Update</string>
+    <string name="saving_per_month">Min. Savings Target / Month</string>
+    <string name="saving_over_remaining_term">Min. Savings over Remaining Term</string>
+    <string name="add_mortgage_mpac">MPAC# Number</string>
+    <string name="attach_mortgage_document">Attach Mortgage Documents</string>
+    <string name="rate_increase">Rate Increase</string>
+    <string name="notify_me">Notify Me</string>
+    <string name="fa_caret_down">{fa-caret-down}</string>
+    <string name="fa_caret_downnew">&#xf0d7;</string>
+    <string name="fa_plus_circle">{fa-plus-circle}</string>
+    <string name="fa_file_text">{ fa-file-text-o}</string>
+    <string name="nighty_days_until_maturity">90 Days Until Maturity</string>
+    <string name="onetwenty_days_until_maturity">120 Days Until Maturity</string>
+    <string name="onefifty_days_until_maturity">180 Days Until Maturity</string>
+    <string name="opportunity_notification_prefernces">Opportunity Notification Preference</string>
+    <string name="contact_preferneces">Contact Preference</string>
+    <string name="title_add_mortgage">Title</string>
+    <string name="lender_add_mortage">Lender</string>
+    <string name="mortgage_type_add_mortgage">Mortgage Type</string>
+    <string name="currency_add_mortgage">Currency</string>
+    <string name="property_postal_code">Property Postal Code</string>
+    <string name="amortization_term">Amortization Period</string>
+    <string name="payment_frequency">Payment Frequency</string>
+    <string name="current_payment_amount">Current Payment Amount</string>
+    <string name="interest_rate">Interest Rate</string>
+    <string name="rate_discount">Rate Discount</string>
+    <string name="start_date">Start Date</string>
+    <string name="maturity_date">Maturity Date</string>
+    <string name="current_term_mortgage_type">Current Term &amp; Mortgage Type</string>
+    <string name="credit_line_amount">Credit Line Amount</string>
+    <string name="notification_setting_step_three">Notification Settings</string>
+    <string name="additional_details">Additional Details</string>
+    <string name="current_amortized_mortgage_value">Current Amortized Mortgage Value</string>
+    <string name="total_mortgage_orginal_value">Total Mortgage Original Value</string>
+    <string name="next_button">Next</string>
+    <string name="previous_button">Previous</string>
+    <string name="save_and_monitor">Save &amp; Monitor</string>
+    <string name="fa_camera">{fa-camera}</string>
+    <string name="APP_ID">1585579905100714</string>
+    <string name="loading">Loading</string>
+    <string name="error_message_uncheck">Please agree with Terms &amp; Conditions and Privacy Policy to proceed.</string>
+
+    <string name="error_connecting_server">Error :Trouble while connecting server!</string>
+    <string name="error_user_not_found">User not found.</string>
+
+    <!-- TODO: Remove or change this button text -->
+    <string name="proceed_btn">Proceed</string>
+
+    <!-- TODO: Change Name of Fragment -->
+    <string name="notification_setting_fragment">Notification Settings</string>
+    <string name="history_fragment">History</string>
+    <string name="privacy_policy_fragment">Privacy Policy</string>
+    <string name="rates_fragment">Bank of Canada Rate</string>
+    <string name="faq_fragment">FAQ</string>
+    <string name="terms_and_condition_fragment">Terms &amp; Conditions</string>
+    <string name="my_account_fragment">My "\u004D""\u00B3" Account</string>
+    <string name="my_dashboard_fragment">My Dashboard</string>
+    <string name="my_notifications">"\u004D""\u00B3" Notifications</string>
+    <string name="title_activity_add_mortgage">Add Existing Mortgage</string>
+    <string name="title_activity_edit_mortgage">Edit Mortgage</string>
+    <string name="title_activity_help_screen">HelpScreenActivity</string>
+    <string name="notifications">Notifications</string>
+    <string name="notification_list">Notification List</string>
+
+    <!--TODO:Help Screen -->
+    <string name="action_m3_icon">"\u004D""\u00B3" Icon</string>
+    <string name="fa_check">{fa-check}</string>
+    <string name="rate_change">Rate changes</string>
+    <string name="maturity_dates">Maturity dates</string>
+    <string name="savings">Savings</string>
+    <string name="secure">Secure</string>
+    <string name="mobile">Mobile</string>
+    <string name="easy_to_use">Easy to Use</string>
+    <string name="attach_documents">Attach Documents</string>
+    <string name="screen_three_title">A secure way to enter your mortgage in 3 easy steps.</string>
+    <string name="screen_four_title">Reduce Mortgage Transaction Costs!</string>
+    <string name="monitor_my_mortgage">\"Monitor My Mortgage\"</string>
+    <string name="make_your_mortgage_work_for_you">…make your mortgage work for you!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_opportunity_one_savings">Oakville House</string>
+    <string name="title_activity_oppr_two_apporching_maturity">Oakville House</string>
+    <string name="title_activity_oppr_three_variable_rate_notification">Oakville House</string>
+
+    <!-- TODO: Remove or change this helpscreens title -->
+    <string name="why_m3">Why "\u004D""\u00B3"</string>
+    <string name="about_your_mortgage">About Your Mortgage</string>
+    <string name="saving_direct_to_you">Savings Direct To You</string>
+    <string name="join_now">JOIN NOW</string>
+
+    <!-- TODO: Remove or change this helpscreens text -->
+    <string name="help_screen_five_email">{fa-envelope} &#160;&#160;  Email</string>
+
+
+    <!-- TODO: Remove or change forgot/reset password error messages step 1 -->
+    <string name="forgot_reset_password_step_one_title">Forgot/Reset Password : Step 1</string>
+    <string name="enter_email_phone">Please enter Email or Phone Number.</string>
+    <string name="enter_valid_email_phone">Please enter valid Email or Phone.</string>
+    <string name="user_not_found_with_email_or_phone">User not found with Email or Phone Number.</string>
+    <string name="facebook_google_user_forgot_password">You have registered using a Social Login account. Please visit Facebook/Google website to reset your password.</string>
+
+    <!-- TODO: Remove or change forgot/reset password error messages step 2 -->
+    <string name="forgot_reset_password_step_two_title">Forgot/Reset Password : Step 2</string>
+    <string name="please_enter_password">Please enter Password.</string>
+    <string name="please_enter_confirm_password">Please enter Confirm Password.</string>
+    <string name="password_eight_char_long">Password must be at least 8 characters long.</string>
+    <string name="alphanumeric_password">Password should be at least 8 characters long, with alphanumeric and special characters.</string>
+    <string name="password_do_not_match">Entered Password do not match.</string>
+    <string name="enter_verification_code">Please enter Verification Code.</string>
+    <string name="enter_valid_verification_code">Please enter valid Verification Code.</string>
+    <string name="password_updated_successfully">Your password has been changed successfully. You can now login with your new password.</string>
+
+    <!-- TODO: Remove or change title or error messages phone number verification pop up on registration -->
+    <string name="title_phone_verification_registrartion">Account Verification</string>
+
+    <!--TODO: Toast messages(error) on my account page-->
+    <string name="enter_information_in_all_fields">Please enter information in all fields.</string>
+    <string name="enter_first_name">Please enter First Name.</string>
+    <string name="enter_last_name">Please enter Last Name.</string>
+    <string name="enter_email">Please enter Email.</string>
+    <string name="enter_valid_email">Please enter valid Email.</string>
+    <string name="enter_phone">Please enter Phone Number.</string>
+    <string name="enter_valid_phone_number">Please enter valid Phone Number.</string>
+    <string name="profile_updated_successfully">Profile updated successfully.</string>
+    <string name="social_user_facebook_update_profile">You are logged in as a Facebook user. You can only modify phone number, notification &amp; contact preference details.</string>
+    <string name="social_user_google_update_profile">You are logged in as a Google user. You can only modify phone number, notification &amp; contact preference details.</string>
+
+    <!--TODO: Toast messages(error) on create account page-->
+    <string name="entered_email_address_do_not_match">Entered Email addresses do not match.</string>
+    <string name="superBroker_id_not_created">Failed to create the account. Please try again later.</string>
+    <string name="please_enter_postal_code">Please enter Property Postal Code.</string>
+    <string name="email_phone_already_exist">Email or Phone Number already exist.</string>
+    <string name="user_created_successfully">Your "\u004D""\u00B3" account has been created successfully.</string>
+
+    <!--TODO: Toast messages(error) on notification setting page-->
+    <string name="enter_saving_amt_per_month">Please enter Minimum Savings Target per Month.</string>
+    <string name="enter_saving_amt_over_remaining_term">Please enter Minimum Savings Over Remaining Term.</string>
+    <string name="title_activity_facebook_register">Register with Facebook</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_google_register">Register with Google</string>
+    <string name="title_activity_postal_code">Select Postal Code</string>
+
+
+    <!-- TODO: Error messages step one add mortgage -->
+    <string name="please_enter_title">Please enter Title.</string>
+    <string name="please_select_lender">Please select Lender.</string>
+    <string name="please_enter_total_mortgage">Please enter Total Mortgage Original Value.</string>
+    <string name="please_enter_current_amortized_mortgage_value">Please enter current amortized mortgage value.</string>
+
+    <!-- TODO: Error messages step two add mortgage -->
+    <string name="please_enter_amortization_term">Please enter Amortization Term.</string>
+    <string name="please_enter_current_payment_amt">Please enter Current Payment Amount.</string>
+    <string name="please_enter_interest_rate">Please enter Interest Rate.</string>
+    <string name="please_enter_rate_discount">Please enter Rate Discount.</string>
+    <string name="please_select_current_term_mortgage_details">Please select Current Term &amp; Mortgage Type Details.</string>
+    <string name="positive_negative_message">Please select whether the Prime Rate Adjustment is positive or negative.</string>
+    <string name="prime_rate_adjustment_error_message"> Please enter Prime Rate Adjustment.</string>
+    <string name="please_enter_credit_line_amt">Please enter Credit Line Amount.</string>
+    <string name="please_select_term">Please select Term.</string>
+    <string name="please_select_status">Please select Status.</string>
+    <string name="please_select_type">Please select Type.</string>
+    <string name="valid_amortization_period"> Please enter valid Amortization Period Value from 1 to 360.</string>
+    <string name="please_select_frequency">Please select Payment Frequency.</string>
+    <string name="please_select_date">Please select Date.</string>
+    <string name="maturity_date_before">Maturity Date should be greater than today.</string>
+
+    <!-- TODO: Error messages step two add mortgage -->
+    <string name="enter_mpac_number">Please enter MPAC number.</string>
+
+
+    <!-- Todo : Change Progress bar messages -->
+    <string name="progress_save_mortgage">Saving...</string>
+    <string name="progress_wait_while_loading">Wait while loading...</string>
+
+    <string name="view_now">View Now</string>
+    <string name="view_later">View Later</string>
+    <string name="how_broker_connect">How should the Broker contact you?</string>
+    <string name="title_oppo_available_dialog">We Found an Opportunity</string>
+    <string name="complete_later">Complete Later</string>
+    <string name="complete_now">Complete Now</string>
+    <string name="mortgage_incomplete_msg">Your mortgage can be accessed from the dashboard.</string>
+    <string name="mortgage_incomplete_title">Mortgage Incomplete</string>
+
+    <string name="uploading">Uploading </string>
+    <string name="of"> of </string>
+
+    <string-array name="CountryCodes">
+        <item>93,AF</item>
+        <item>355,AL</item>
+        <item>213,DZ</item>
+        <item>376,AD</item>
+        <item>244,AO</item>
+        <item>672,AQ</item>
+        <item>54,AR</item>
+        <item>374,AM</item>
+        <item>297,AW</item>
+        <item>61,AU</item>
+        <item>43,AT</item>
+        <item>994,AZ</item>
+        <item>973,BH</item>
+        <item>880,BD</item>
+        <item>375,BY</item>
+        <item>32,BE</item>
+        <item>501,BZ</item>
+        <item>229,BJ</item>
+        <item>975,BT</item>
+        <item>591,BO</item>
+        <item>387,BA</item>
+        <item>267,BW</item>
+        <item>55,BR</item>
+        <item>673,BN</item>
+        <item>359,BG</item>
+        <item>226,BF</item>
+        <item>95,MM</item>
+        <item>257,BI</item>
+        <item>855,KH</item>
+        <item>237,CM</item>
+        <item>1,CA</item>
+        <item>238,CV</item>
+        <item>236,CF</item>
+        <item>235,TD</item>
+        <item>56,CL</item>
+        <item>86,CN</item>
+        <item>61,CX</item>
+        <item>61,CC</item>
+        <item>57,CO</item>
+        <item>269,KM</item>
+        <item>242,CG</item>
+        <item>243,CD</item>
+        <item>682,CK</item>
+        <item>506,CR</item>
+        <item>385,HR</item>
+        <item>53,CU</item>
+        <item>357,CY</item>
+        <item>420,CZ</item>
+        <item>45,DK</item>
+        <item>253,DJ</item>
+        <item>670,TL</item>
+        <item>593,EC</item>
+        <item>20,EG</item>
+        <item>503,SV</item>
+        <item>240,GQ</item>
+        <item>291,ER</item>
+        <item>372,EE</item>
+        <item>251,ET</item>
+        <item>500,FK</item>
+        <item>298,FO</item>
+        <item>679,FJ</item>
+        <item>358,FI</item>
+        <item>33,FR</item>
+        <item>689,PF</item>
+        <item>241,GA</item>
+        <item>220,GM</item>
+        <item>995,GE</item>
+        <item>49,DE</item>
+        <item>233,GH</item>
+        <item>350,GI</item>
+        <item>30,GR</item>
+        <item>299,GL</item>
+        <item>502,GT</item>
+        <item>224,GN</item>
+        <item>245,GW</item>
+        <item>592,GY</item>
+        <item>509,HT</item>
+        <item>504,HN</item>
+        <item>852,HK</item>
+        <item>36,HU</item>
+        <item>91,IN</item>
+        <item>62,ID</item>
+        <item>98,IR</item>
+        <item>964,IQ</item>
+        <item>353,IE</item>
+        <item>44,IM</item>
+        <item>972,IL</item>
+        <item>39,IT</item>
+        <item>225,CI</item>
+        <item>81,JP</item>
+        <item>962,JO</item>
+        <item>7,KZ</item>
+        <item>254,KE</item>
+        <item>686,KI</item>
+        <item>965,KW</item>
+        <item>996,KG</item>
+        <item>856,LA</item>
+        <item>371,LV</item>
+        <item>961,LB</item>
+        <item>266,LS</item>
+        <item>231,LR</item>
+        <item>218,LY</item>
+        <item>423,LI</item>
+        <item>370,LT</item>
+        <item>352,LU</item>
+        <item>853,MO</item>
+        <item>389,MK</item>
+        <item>261,MG</item>
+        <item>265,MW</item>
+        <item>60,MY</item>
+        <item>960,MV</item>
+        <item>223,ML</item>
+        <item>356,MT</item>
+        <item>692,MH</item>
+        <item>222,MR</item>
+        <item>230,MU</item>
+        <item>262,YT</item>
+        <item>52,MX</item>
+        <item>691,FM</item>
+        <item>373,MD</item>
+        <item>377,MC</item>
+        <item>976,MN</item>
+        <item>382,ME</item>
+        <item>212,MA</item>
+        <item>258,MZ</item>
+        <item>264,NA</item>
+        <item>674,NR</item>
+        <item>977,NP</item>
+        <item>31,NL</item>
+        <item>599,AN</item>
+        <item>687,NC</item>
+        <item>64,NZ</item>
+        <item>505,NI</item>
+        <item>227,NE</item>
+        <item>234,NG</item>
+        <item>683,NU</item>
+        <item>850,KP</item>
+        <item>47,NO</item>
+        <item>968,OM</item>
+        <item>92,PK</item>
+        <item>680,PW</item>
+        <item>507,PA</item>
+        <item>675,PG</item>
+        <item>595,PY</item>
+        <item>51,PE</item>
+        <item>63,PH</item>
+        <item>870,PN</item>
+        <item>48,PL</item>
+        <item>351,PT</item>
+        <item>1,PR</item>
+        <item>974,QA</item>
+        <item>40,RO</item>
+        <item>7,RU</item>
+        <item>250,RW</item>
+        <item>590,BL</item>
+        <item>685,WS</item>
+        <item>378,SM</item>
+        <item>239,ST</item>
+        <item>966,SA</item>
+        <item>221,SN</item>
+        <item>381,RS</item>
+        <item>248,SC</item>
+        <item>232,SL</item>
+        <item>65,SG</item>
+        <item>421,SK</item>
+        <item>386,SI</item>
+        <item>677,SB</item>
+        <item>252,SO</item>
+        <item>27,ZA</item>
+        <item>82,KR</item>
+        <item>34,ES</item>
+        <item>94,LK</item>
+        <item>290,SH</item>
+        <item>508,PM</item>
+        <item>249,SD</item>
+        <item>597,SR</item>
+        <item>268,SZ</item>
+        <item>46,SE</item>
+        <item>41,CH</item>
+        <item>963,SY</item>
+        <item>886,TW</item>
+        <item>992,TJ</item>
+        <item>255,TZ</item>
+        <item>66,TH</item>
+        <item>228,TG</item>
+        <item>690,TK</item>
+        <item>676,TO</item>
+        <item>216,TN</item>
+        <item>90,TR</item>
+        <item>993,TM</item>
+        <item>688,TV</item>
+        <item>971,AE</item>
+        <item>256,UG</item>
+        <item>44,GB</item>
+        <item>380,UA</item>
+        <item>598,UY</item>
+        <item>1,US</item>
+        <item>998,UZ</item>
+        <item>678,VU</item>
+        <item>39,VA</item>
+        <item>58,VE</item>
+        <item>84,VN</item>
+        <item>681,WF</item>
+        <item>967,YE</item>
+        <item>260,ZM</item>
+        <item>263,ZW</item>
+    </string-array>
+</resources>

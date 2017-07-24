@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgraound"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.app.monitormymortgage.Activity.Main2Activity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+                <!--<ImageView-->
+                <!--android:id="@+id/iv_background"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/backgraound" />-->
+
+                <ImageView
+                    android:id="@+id/backgroundImageView"
+                    android:layout_width="150dp"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginTop="75dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dip"
+                    android:src="@drawable/u" />
+
+                <com.app.custom.IconTextView
+                    android:id="@+id/m3TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:shadowRadius="1"
+                    android:text="@string/help_screen_one"
+                    android:textColor="@color/colorM3signin"
+                    android:textSize="20sp" />
+
+                <com.app.custom.IconTextView
+                    android:id="@+id/continueWithTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="25dp"
+                    android:layout_marginBottom="15dp"
+                    android:shadowRadius="1"
+                    android:text="@string/continue_with"
+                    android:textColor="@color/colorM3signin"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.app.custom.IconButton
+                        android:id="@+id/facebookButton"
+                        android:layout_width="0dp"
+                        android:layout_height="46dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_rounded"
+                        android:text="@string/fa_facebook_square"
+                        android:textColor="@color/colorM3signin"
+                        android:textSize="15sp" />
+
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/login_button"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:visibility="gone" />
+
+                    <com.google.android.gms.common.SignInButton
+                        android:id="@+id/googlePlusButton"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <com.app.custom.IconEditText
+                    android:id="@+id/userNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"
+                    android:layout_below="@+id/facebookButton"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="1dip"
+
+                    android:layout_marginTop="7dp"
+                    android:background="@color/loginCredientialBackground"
+                    android:hint="@string/username_hint"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"
+                    android:layout_below="@+id/userNameEditText"
+
+                    android:background="@color/loginCredientialBackground"
+                    android:hint="@string/password_hint"
+                    android:inputType="textPassword"
+                    android:paddingLeft="15dp"
+                    android:singleLine="true"
+                    android:textSize="15sp" />
+
+                <com.app.custom.IconTextView
+                    android:id="@+id/forgotResetPasswordTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/passwordEditText"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="7dp"
+                    android:shadowRadius="1"
+                    android:text="@string/forgot_or_reset_password"
+                    android:textColor="@color/colorM3signin"
+                    android:textSize="14sp" />
+
+                <com.app.custom.IconButton
+                    android:id="@+id/signInButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/forgotResetPasswordTextView"
+
+                    android:layout_marginTop="7dp"
+                    android:alpha="0.75"
+                    android:background="@drawable/button_white"
+                    android:shadowRadius="1"
+                    android:text="@string/sign_in"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+                <com.app.custom.IconTextView
+                    android:id="@+id/newUserTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/new_user"
+                    android:textColor="@color/colorM3signin"
+                    android:textSize="14sp" />
+
+                <com.app.custom.IconButton
+                    android:id="@+id/createAccountButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newUserTextView"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:alpha="0.75"
+                    android:background="@drawable/button_white"
+                    android:shadowRadius="1"
+                    android:text="@string/create_M3_account"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/facebookButton"
+                    android:layout_alignStart="@+id/facebookButton"
+                    android:layout_alignTop="@+id/backgroundImageView" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/stepTwoLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--  TODO:Amortization Term & payment Frequency Layout  -->
+        <LinearLayout
+            android:id="@+id/linearLayoutAmortizationTermPaymentFrequency"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutChildAmortizationTerm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border"
+                android:focusable="true"
+                android:orientation="vertical">
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/AmortizationTermTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="left"
+                    android:text="@string/amortization_term"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <com.mobifilia.custom.IconEditText
+                    android:id="@+id/AmortizationTermEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:hint="Enter in Months"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutChildPaymentFrequency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border">
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/paymentFrequencyTextview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/payment_frequency"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <RelativeLayout
+                    android:id="@+id/selectFrequencyRelativeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/paymentFrequencyTextview"
+                    >
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/paymentFrequencyTwoTextview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/fab_margin"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Select Frequency"
+                        android:textColor="@color/color_black"
+                        android:textSize="14sp" />
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="{fa-caret-down}"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:textSize="17dp"
+                        android:textColor="@color/color_black"
+                        android:layout_marginRight="10dp"
+                        />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+        <!-- TODO : Current Payment Amount -->
+        <LinearLayout
+            android:id="@+id/linearLayoutChildCurrentPaymentAmt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/textview_border"
+            android:orientation="vertical">
+
+            <com.mobifilia.custom.IconTextView
+                android:id="@+id/currentPaymentAmtTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/current_payment_amount"
+                android:textColor="#666666"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="$"
+                    android:textColor="@color/color_black"
+                    android:textSize="15sp" />
+
+                <com.mobifilia.custom.IconEditText
+                    android:id="@+id/currentPaymentAmtEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:paddingLeft="2dp"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </LinearLayout>
+        <!-- TODO : Interest Rate & Rate Discount Layout -->
+        <LinearLayout
+            android:id="@+id/linearLayoutInterestRateDiscountRate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutChildInterestRate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border">
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/interesrRateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/interest_rate"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <com.mobifilia.custom.IconEditText
+                    android:id="@+id/actualInterestRateEditText"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/currencyTextView"
+                    android:layout_alignStart="@+id/currencyTextView"
+                    android:layout_below="@+id/interesrRateTextView"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:background="@null"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="12dp"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:paddingRight="3dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/interesrRateTextView"
+                    android:layout_marginTop="13dp"
+                    android:layout_toEndOf="@+id/actualInterestRateEditText"
+                    android:layout_toRightOf="@+id/actualInterestRateEditText"
+                    android:text="%"
+                    android:textColor="@color/color_black" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutChildDiscountRate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border"
+                android:orientation="vertical">
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/discountRateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/rate_discount"
+                    android:singleLine="true"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.mobifilia.custom.IconEditText
+                        android:id="@+id/discountRateEditText"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="10dp"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:background="@null"
+                        android:singleLine="true"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="12dp"
+                        android:paddingRight="3dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:layout_toRightOf="@+id/discountRateEditText"
+                        android:text="%"
+                        android:textColor="@color/color_black" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+        <!-- TODO : Current Term & Mortgage Type Layout -->
+        <LinearLayout
+            android:id="@+id/linearLayoutChildCurrentTermMortgageType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/textview_border"
+            android:orientation="vertical">
+
+            <com.mobifilia.custom.IconTextView
+                android:id="@+id/currentTermTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/current_term_mortgage_type"
+                android:textColor="#666666"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginRight="7dp"
+                    android:background="#F9F9F9"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/currentTermNumberTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="Select Term {fa-caret-down}" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginRight="7dp"
+                    android:background="#F9F9F9"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/mortgageTypeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:text="Select Type {fa-caret-down}" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="#F9F9F9"
+                    android:layout_marginRight="7dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/mortgageStatusTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:text="Select Type {fa-caret-down}" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- TODO : Start Date And Maturity Date Layout -->
+        <LinearLayout
+            android:id="@+id/linearLayoutStartDateMaturityDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutChildStartDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border">
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/startDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/start_date"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/actualStartDateEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/startDateTextView"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Select Date"
+                    android:textColor="@color/color_black"
+                    android:textSize="15sp" />
+
+                <!--<com.mobifilia.custom.IconTextView-->
+                <!--android:id="@+id/selectStartDateSpinner"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingBottom="4dp"-->
+                <!--android:paddingLeft="4dp"-->
+                <!--android:paddingRight="4dp"-->
+                <!--android:text="@string/fa_caret_down"-->
+                <!--android:layout_alignBaseline="@+id/actualStartDateTextView"-->
+                <!--android:layout_alignBottom="@+id/actualStartDateTextView"-->
+                <!--android:layout_toRightOf="@+id/startDateTextView"-->
+                <!--android:layout_toEndOf="@+id/startDateTextView" />-->
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutChildMaturityDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/textview_border">
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/maturityDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/maturity_date"
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <RelativeLayout
+                    android:id="@+id/maturityDateLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/maturityDateTextView"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="#F9F9F9">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/actualMaturityDateEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:clickable="false"
+                        android:text=""
+                        android:textColor="@color/color_black"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <!--<com.mobifilia.custom.IconTextView-->
+                <!--android:id="@+id/selectMaturityDateSpinner"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingBottom="10dp"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:paddingRight="10dp"-->
+                <!--android:text="@string/fa_caret_down"-->
+                <!--android:layout_alignTop="@+id/actualMaturityDateTextView"-->
+                <!--android:layout_toEndOf="@+id/actualMaturityDateTextView"-->
+                <!--android:layout_toRightOf="@+id/actualMaturityDateTextView" />-->
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutChildCreditLineAmt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/textview_border"
+            android:orientation="vertical">
+
+            <com.mobifilia.custom.IconTextView
+                android:id="@+id/creditLineAmtTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/credit_line_amount"
+                android:textColor="#666666"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="$"
+                    android:textColor="@color/color_black"
+                    android:textSize="15sp" />
+
+                <com.mobifilia.custom.IconEditText
+                    android:id="@+id/creditLineAmtEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:paddingLeft="2dp"
+                    android:singleLine="true"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </LinearLayout>
+        <!-- TODO : Previous & Next Button Layout -->
+        <LinearLayout
+            android:id="@+id/linearLayoutPreviousNext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:orientation="horizontal">
+
+            <com.mobifilia.custom.IconButton
+                android:id="@+id/step_two_btn_previous"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="start"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_rounded"
+                android:paddingLeft="10dp"
+                android:text="@string/previous_button"
+                android:textAlignment="viewStart"
+                android:textColor="@color/color_standard_green"
+                android:textSize="16sp" />
+
+            <com.mobifilia.custom.IconButton
+                android:id="@+id/step_two_btn_next"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_rounded"
+                android:paddingRight="10dp"
+                android:text="@string/next_button"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/color_standard_green"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

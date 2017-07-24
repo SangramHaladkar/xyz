@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- TODO:Case 4- Mortgage Dashboard -->
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/textViewCaseFour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="10sp"
+        android:text="Currently no opportunities exist."
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:visibility="gone"
+
+        />
+    <!-- TODO:Case 3- Mortgage Dashboard -->
+    <RelativeLayout
+        android:id="@+id/relativeLayoutCaseThree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="10sp"
+        android:background="#324B72"
+        android:visibility="gone"
+
+        >
+
+        <com.mobifilia.custom.IconTextView
+            android:id="@+id/viewLastOpportunityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text="View Last Opportunity"
+            android:textColor="@color/color_standard_green"
+            android:textSize="16sp" />
+
+        <com.mobifilia.custom.IconTextView
+            android:id="@+id/faAngleRightTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/viewLastOpportunityTextView"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp"
+            android:text="@string/fa_angle_right"
+            android:textColor="@color/color_standard_green"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <!-- TODO:Case 2- Mortgage Dashboard -->
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutCaseTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="10sp"
+        android:background="#94CA3F"
+        android:visibility="gone">
+
+        <com.mobifilia.custom.IconTextView
+            android:id="@+id/brokerResponsePendingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Broker Response Pending.View Opportunity"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <com.mobifilia.custom.IconTextView
+            android:id="@+id/faAngleRightCaseTwoTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/brokerResponsePendingTextView"
+            android:text="@string/fa_angle_right"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+
+            />
+
+    </RelativeLayout>
+
+    <!-- TODO:Case 1- Mortgage Dashboard -->
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutCaseOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="10sp"
+        android:background="#94CA3F"
+        android:visibility="gone">
+
+        <com.mobifilia.custom.IconTextView
+            android:id="@+id/opportunityAvailableTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Opportunity Available. Click to View "
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <com.mobifilia.custom.IconTextView
+            android:id="@+id/faAngleRightCaseOneTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/opportunityAvailableTextView"
+            android:text="@string/fa_angle_right"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+
+            />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:background="@drawable/textview_border"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/mortgageImageTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left|center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#666666"
+                 />
+                <TextView
+                    android:id="@+id/otherTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Others"
+                    android:textColor="@color/color_black"
+                    android:textSize="20sp"
+                    android:visibility="visible"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/mortgageImageTextView"
+                    android:layout_toEndOf="@+id/mortgageImageTextView" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginRight="@dimen/fab_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/textview_border"
+                    android:orientation="vertical">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Amortized Balance"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/dollarTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="$"
+                            android:textColor="@color/color_black"
+                            android:textSize="15sp" />
+
+                        <com.mobifilia.custom.IconTextView
+                            android:id="@+id/amortizedBalanceTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_marginBottom="10dp"
+                            android:layout_toRightOf="@+id/dollarTextView"
+                            android:maxLength="25"
+                            android:singleLine="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:background="@drawable/textview_border"
+                    android:orientation="vertical">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Interest Rate"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/interestRateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:maxLength="25"
+                        android:singleLine="true"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/fab_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/textview_border"
+                    android:orientation="vertical">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Payment"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/dollarPaymentTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="$"
+                            android:textColor="@color/color_black"
+                            android:textSize="15sp" />
+
+                        <com.mobifilia.custom.IconTextView
+                            android:id="@+id/paymentTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_marginBottom="10dp"
+                            android:layout_toRightOf="@+id/dollarPaymentTextView"
+                            android:maxLength="25"
+                            android:singleLine="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/textview_border"
+                    android:orientation="vertical">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Payment Frequency"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/paymentFrequencyTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:maxLength="25"
+                        android:singleLine="true"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/fab_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/textview_border"
+                    android:orientation="vertical">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Maturity Date"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.mobifilia.custom.IconTextView
+                            android:id="@+id/maturityDateTextview"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="50dp"
+                            android:layout_weight="1"
+                            android:maxLength="25"
+                            android:singleLine="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/textview_border"
+                    android:orientation="vertical">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Amortization"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/amortizationTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:maxLength="25"
+                        android:singleLine="true"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:background="@drawable/textview_border"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textview_border"
+                    android:orientation="vertical">
+
+
+
+                        <com.mobifilia.custom.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Term &amp; Type"
+                            android:textColor="#666666"
+                            android:textSize="15sp" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <com.mobifilia.custom.IconTextView
+                            android:id="@+id/termTextview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:maxLength="35"
+                            android:layout_marginRight="10dp"
+                            android:singleLine="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp" />
+
+                        <com.mobifilia.custom.IconTextView
+                            android:id="@+id/statusTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="15sp"
+                            android:layout_marginRight="10dp"
+                            android:textColor="@color/color_black"
+                            android:layout_toRightOf="@+id/termTextview"
+
+                            />
+                        <com.mobifilia.custom.IconTextView
+                            android:id="@+id/typeTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/color_black"
+                            android:layout_toRightOf="@+id/statusTextView"
+
+                            />
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/fab_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/textview_border"
+                    android:orientation="vertical">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Property Postal Code"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.mobifilia.custom.IconTextView
+                            android:id="@+id/postalCodeTextview"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="50dp"
+                            android:layout_weight="1"
+                            android:maxLength="25"
+                            android:singleLine="true"
+                            android:textColor="#000000"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/textview_border"
+                    android:orientation="vertical">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Credit Line Amount"
+                        android:textColor="#666666"
+                        android:textSize="15sp" />
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/creditLineAmtTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:maxLength="25"
+                        android:singleLine="true"
+                        android:text="- - -"
+                        android:textColor="#000000"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/paperClipTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:visibility="visible"
+                        android:text="@string/fa_paperclip_mortgage_documents"
+                        android:textColor="#6E99CC"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/mortgageDocumentsTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:textSize="14sp"
+                        android:visibility="visible"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/lastUpdateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        />
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/opprNotAvailableTextView"
+                        android:layout_width="168dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="Mortgage looks good at this time. We will keep you posted. "
+                        android:textColor="@color/color_broker_responce_pending"
+                        android:visibility="gone"
+                        />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <com.mobifilia.custom.IconButton
+                    android:id="@+id/btn_edit_mortgage"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#324B72"
+                    android:text="Edit Mortgage"
+                    android:textColor="#94CA3F"
+                    android:textSize="16sp" />
+
+                <com.mobifilia.custom.IconButton
+                    android:id="@+id/btn_analyze_now"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_weight="1"
+                    android:background="#94CA3F"
+                    android:text="Analyze Now"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="7dp"
+                >
+
+                <com.mobifilia.custom.IconButton
+                    android:id="@+id/btn_backToDashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+                    android:layout_below="@+id/errorMessage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="bottom"
+                    android:background="#324B72"
+                    android:text="@string/back_to_dashboard"
+                    android:textColor="@color/color_standard_green"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

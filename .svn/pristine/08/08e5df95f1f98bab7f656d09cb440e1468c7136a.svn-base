@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_my_m3_account"
+            android:title="@string/my_account_fragment" />
+        <item
+            android:id="@+id/nav_notification_settings"
+            android:title="Notification Settings" />
+
+        <item
+            android:id="@+id/nav_faq"
+            android:title="FAQ" />
+        <item
+            android:id="@+id/nav_terms_condition"
+            android:title="Terms &amp; Conditions" />
+        <item
+            android:id="@+id/nav_privacy_policy"
+            android:title="Privacy Policy" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Log Out" />
+
+        <item android:id="@+id/primerate"
+            android:title="Prime Rate"/>
+
+    </group>
+</menu>

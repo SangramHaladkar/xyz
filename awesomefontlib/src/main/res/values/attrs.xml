@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="iconGravity" format="enum">
+        <enum name="LEFT" value="1" />
+        <enum name="RIGHT" value="2" />
+    </attr>
+
+    <declare-styleable name="CustomTextView">
+        <attr name="fontFamily" format="string" />
+        <attr name="iconGravity" />
+        <attr name="iconName" format="string" />
+        <attr name="iconSize" format="integer" />
+        <attr name="iconColor" format="color" />
+    </declare-styleable>
+
+</resources>

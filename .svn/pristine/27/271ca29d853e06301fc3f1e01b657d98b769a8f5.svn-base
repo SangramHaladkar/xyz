@@ -1,0 +1,111 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff">
+
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/titleTextView"
+        android:gravity="center"
+        android:text="Sample"
+        android:inputType="textCapWords"
+        android:textColor="@color/colorM3signin"
+        android:background="@color/colorPrimary"
+        android:scaleType="fitCenter" />
+    <LinearLayout
+        android:layout_below="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/color_standard_green"/>
+
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/text_dialog"
+        android:layout_below="@+id/titleTextView"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="13sp"
+        android:textColor="#666666"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal" />
+
+
+    <RadioGroup
+        android:id="@+id/ContactPreferncesRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleTextView"
+
+        android:layout_centerInParent="true">
+
+        <RadioButton android:id="@+id/radioButtonPhn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:textSize="16sp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:button="@drawable/radiobutton"
+           />
+
+        <RadioButton android:id="@+id/radioButtonEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:paddingLeft="10dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
+            android:button="@drawable/radiobutton"
+            />
+        <RadioButton android:id="@+id/radioButtonBoth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Both"
+            android:paddingLeft="10dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
+            android:button="@drawable/radiobutton"
+            />
+
+    </RadioGroup>
+
+    <com.mobifilia.custom.IconButton
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Okay"
+        android:textSize="14sp"
+        android:inputType="textCapWords"
+        android:id="@+id/btn_dialog"
+        android:layout_marginBottom="7dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@drawable/button_rounded"
+        android:textColor="#80A445"
+        android:layout_below="@+id/ContactPreferncesRadioGroup"
+        android:layout_centerHorizontal="true" />
+
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorM3signin"
+        android:id="@+id/closeButton"
+        android:text="@string/alert_close_button"
+        android:textSize="20dp"
+        android:layout_marginTop="7dp"
+        android:paddingRight="14dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="right"/>
+
+</RelativeLayout>
+

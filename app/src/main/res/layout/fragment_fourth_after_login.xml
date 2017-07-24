@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/gradient">
+
+    <com.app.custom.IconTextView
+        android:id="@+id/screenFourTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/screen_four_title"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        android:visibility="invisible" />
+
+
+    <ImageView
+        android:id="@+id/helpscreen_fourimageview"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:layout_below="@+id/screenFourTitleTextView"
+        android:src="@drawable/helpscreenfour"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/closeHelpButton" />
+    <com.app.custom.IconButton
+        android:id="@+id/closeHelpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/close_help"
+        android:textColor="@color/colorM3signin"
+        android:background="@drawable/button_bg_transparent"
+        android:layout_marginBottom="45dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

@@ -1,0 +1,562 @@
+package com.mobifilia.monitormymortgage.Activity;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.NumberPicker;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.eris.androidddp.ErisCollectionManager;
+import com.eris.androidddp.ErisConnectionListener;
+import com.mobifilia.monitormymortgage.BaseClasses.BaseActivity;
+import com.mobifilia.monitormymortgage.BaseClasses.ViewDialog;
+import com.mobifilia.monitormymortgage.Common.CommonConstants;
+import com.mobifilia.monitormymortgage.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Date;
+import java.util.HashMap;
+
+import im.delight.android.ddp.ResultListener;
+
+
+public class OpprTwoApporchingMaturityActivity extends BaseActivity implements NumberPicker.OnValueChangeListener {
+    TextView disclaimerTextView;
+    Button connectToBrokerButton;
+    Button remindMeInWeekButton;
+    TextView variableTermDropdownTextView;
+    TextView fixedTermDropdownTextView;
+    TextView actualBestTermTextView;
+    TextView amortizedBalanceTextView;
+    TextView currentPaymentTextview;
+    TextView paymentFrequencyTextView;
+    TextView termTextView;
+    TextView interestRateTextView;
+    TextView bestFixedTermTextView;
+    TextView bestFixedInterestRateTextView;
+    TextView bestVariableRatetermTextView;
+    TextView bestVariableInterestRateTextView;
+    static Dialog d;
+    String opportunityIdAppochingMaturity;
+    String title;
+    String status_code;
+    RadioGroup ContactPreferncesRadioGroup;
+    String communication_pref;
+    AlertDialog alertDialog;
+    TextView maturityTextView;
+    final CharSequence[] bestFixedRate = {"6 Mth", "1 Yr", "2 Yr", "3 Yr", "4 Yr", "5 Yr", "6 Yr", "7 Yr", "8 Yr", "9 Yr", "10 Yr"};
+    RelativeLayout bestFixedRateRelativeLayout;
+    RelativeLayout bestVariableRateRelativeLayout;
+    NumberFormat nf;
+    DecimalFormat df;
+    String username;
+    String cntPrefernce;
+    String facebookUserLoginId;
+    boolean facebookUserLoginFlag;
+    String googleUserLoginId;
+    boolean googleUserLoginFlag;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        title = getIntent().getExtras().getString("activity_title");
+        (this).setTitle(title);
+        ViewDialog.showProgress(R.string.help_screen_one, OpprTwoApporchingMaturityActivity.this, R.string.progress_wait_while_loading);
+        setContentView(R.layout.activity_oppr_two_apporching_maturity);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        opportunityIdAppochingMaturity = getIntent().getExtras().getString("opportunity_id");
+        Log.v("TAG", opportunityIdAppochingMaturity);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.previous, getApplicationContext().getTheme()));
+        } else {
+            toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.previous));
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO:Redirect to activity.
+                finish();
+  //              ShowImagesActivity.flagChanged=true;
+            }
+        });
+
+        facebookUserLoginId = PreferenceManager.getDefaultSharedPreferences(this).getString("FacebookUserLoginId", "");
+        facebookUserLoginFlag = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("FacebookUserLoginFlag", false);
+        googleUserLoginId = PreferenceManager.getDefaultSharedPreferences(this).getString("GoogleUserLoginId", "");
+        googleUserLoginFlag = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("GoogleUserLoginFlag", false);
+        username = PreferenceManager.getDefaultSharedPreferences(this).getString("username", "");
+        if (CommonConstants.mDebug) Log.v("TAG", username);
+        initializeUIComponent();
+        getUser(username);
+        remindMeInWeekButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewDialog.showAlertPopUp(OpprTwoApporchingMaturityActivity.this, "You will be reminded about this opportunity" + "\n" + "again after a week.", "Reminder");
+            }
+        });
+        setOpportunityDetails(opportunityIdAppochingMaturity);
+        connectToBroker();
+        fixedTermDropdownClick();
+        variableTermDropdownClick();
+        disclaimerTextViewClick();
+        nf = NumberFormat.getInstance();
+        df = (DecimalFormat) nf;
+        df.applyPattern("#,###.00");
+    }
+
+    public void disclaimerTextViewClick() {
+        disclaimerTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewDialog.showAlertPopUp(OpprTwoApporchingMaturityActivity.this, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Disclaimer");
+            }
+        });
+    }
+
+    public void getUser(final String userId) {
+        HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+
+        if (facebookUserLoginFlag) {
+            stringObjectHashMap.put("userId", facebookUserLoginId);
+        } else if (googleUserLoginFlag) {
+            stringObjectHashMap.put("userId", googleUserLoginId);
+        } else {
+            stringObjectHashMap.put("userId", userId);
+        }
+        ErisCollectionManager.getInstance().callMethod("getUser", new Object[]{stringObjectHashMap}, new ResultListener() {
+            @Override
+            public void onSuccess(String result) {
+                Log.v("TAG", result);
+                try {
+                    JSONObject jsonObjectMain = new JSONObject(result);
+                    JSONObject jsonObjectData = jsonObjectMain.getJSONObject("data");
+                    JSONObject jsonObjectResult = jsonObjectData.getJSONObject("result");
+                    cntPrefernce = jsonObjectResult.getString("contact_pref");
+                    Log.v("TAG", cntPrefernce);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String error, final String reason, String details) {
+                ViewDialog.showAlertPopUp(OpprTwoApporchingMaturityActivity.this, reason, "Error");
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+//        ShowImagesActivity.flagChanged=true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        menu.findItem(R.id.icon).setVisible(true);
+        menu.findItem(R.id.icon).setEnabled(false);
+        menu.findItem(R.id.closeButton).setVisible(false);
+        return true;
+    }
+
+
+    public void initializeUIComponent() {
+        disclaimerTextView = (TextView) findViewById(R.id.disclaimerTextView);
+        String htmlString = "<font color='#3F51B5'><u>Disclaimer</u></font>";
+        disclaimerTextView.setText(Html.fromHtml(htmlString));
+//        variableTermDropdownTextView = (TextView) findViewById(R.id.variableTermDropdownTextView);
+        //      fixedTermDropdownTextView = (TextView) findViewById(R.id.fixedTermDropdownTextView);
+        remindMeInWeekButton = (Button) findViewById(R.id.remindMeInWeekButton);
+        connectToBrokerButton = (Button) findViewById(R.id.connectToBrokerButton);
+        disclaimerTextView = (TextView) findViewById(R.id.disclaimerTextView);
+        amortizedBalanceTextView = (TextView) findViewById(R.id.amortizedBalanceTextView);
+        currentPaymentTextview = (TextView) findViewById(R.id.currentPaymentTextview);
+        paymentFrequencyTextView = (TextView) findViewById(R.id.paymentFrequencyTextView);
+        termTextView = (TextView) findViewById(R.id.termTextView);
+        interestRateTextView = (TextView) findViewById(R.id.interestRateTextView);
+        bestFixedTermTextView = (TextView) findViewById(R.id.bestFixedTermTextView);
+        bestFixedInterestRateTextView = (TextView) findViewById(R.id.bestFixedInterestRateTextView);
+        bestVariableRatetermTextView = (TextView) findViewById(R.id.bestVariableRatetermTextView);
+        bestVariableInterestRateTextView = (TextView) findViewById(R.id.bestVariableInterestRateTextView);
+        maturityTextView = (TextView) findViewById(R.id.maturityTextView);
+        bestFixedRateRelativeLayout = (RelativeLayout) findViewById(R.id.bestFixedRateRelativeLayout);
+        bestVariableRateRelativeLayout = (RelativeLayout) findViewById(R.id.bestVariableRateRelativeLayout);
+    }
+
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+    }
+
+    public void setOpportunityDetails(final String opportunityId) {
+        HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+        stringObjectHashMap.put("opportunity_id", opportunityId);
+        stringObjectHashMap.put("lang", "en");
+        stringObjectHashMap.put("req_from", "android");
+
+        ErisCollectionManager.getInstance().callMethod("getOpportunityDetails", new Object[]{stringObjectHashMap}, new ResultListener() {
+            @Override
+            public void onSuccess(String result) {
+                Log.v("TAG onSuccess Appr", result);
+                try {
+                    JSONObject jsonObjectMain = new JSONObject(result);
+                    JSONObject jsonObjectData = jsonObjectMain.getJSONObject("data");
+                    JSONObject jsonObjectResult = jsonObjectData.getJSONObject("result");
+                    JSONObject jsonObjectOpportunity = jsonObjectResult.getJSONObject("opportunity");
+                    status_code = jsonObjectOpportunity.getString("status_code");
+                    if (status_code.equalsIgnoreCase("50000") || status_code.equalsIgnoreCase("60000") || status_code.equalsIgnoreCase("70000")) {
+                        connectToBrokerButton.setVisibility(View.INVISIBLE);
+                    }
+                    maturityTextView.setText("'Monitor My Mortgage' has identified this mortgage is within " + jsonObjectResult.getString("notify_until_maturity_days") + " days of maturity.");
+                    if (jsonObjectResult.getString("amortized_amount").equalsIgnoreCase("0.00")) {
+                        amortizedBalanceTextView.setText(" - -");
+                    } else {
+                        amortizedBalanceTextView.setText("$ " + df.format(Double.valueOf(jsonObjectResult.getString("amortized_amount")).doubleValue()));
+                    }
+                    currentPaymentTextview.setText(df.format(Double.valueOf(jsonObjectResult.getString("current_payment_amount")).doubleValue()));
+                    paymentFrequencyTextView.setText(jsonObjectResult.getString("current_payment_frequency"));
+                    int years = Integer.parseInt(jsonObjectResult.getString("current_term_in_months")) / 12;
+                    termTextView.setText(years + " Years");
+                    if (!jsonObjectResult.getString("interest_rate_percentage").contains(".")) {
+                        interestRateTextView.setText(jsonObjectResult.getString("interest_rate_percentage") + ".00" + "%");
+                    } else {
+                        interestRateTextView.setText(jsonObjectResult.getString("interest_rate_percentage") + "%");
+                    }
+
+                    int yearsBestFixedTerm = Integer.parseInt(jsonObjectOpportunity.getString("best_fixed_rate_term")) / 12;
+                    bestFixedTermTextView.setText(yearsBestFixedTerm + " Yr");
+                    bestFixedInterestRateTextView.setText(jsonObjectOpportunity.getString("best_fixed_rate_percent") + "%");
+
+                    int yearsBestVariableTerm = Integer.parseInt(jsonObjectOpportunity.getString("best_variable_rate_term")) / 12;
+                    bestVariableRatetermTextView.setText(yearsBestVariableTerm + " Yr");
+                    bestVariableInterestRateTextView.setText(jsonObjectOpportunity.getString("best_variable_rate_percent") + "%");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ViewDialog.hideProgress();
+
+
+            }
+
+            @Override
+            public void onError(String error, final String reason, String details) {
+                Log.v("TAG onError Appr", reason);
+                ErisCollectionManager.getInstance().reconnectMeteor(new ErisConnectionListener() {
+                    @Override
+                    public void onConnect(boolean value) {
+                        if (value) {
+                            setOpportunityDetails(opportunityIdAppochingMaturity);
+                            if (facebookUserLoginFlag) {
+                                getUser(facebookUserLoginId);
+                            } else if (googleUserLoginFlag) {
+                                getUser(googleUserLoginId);
+                            } else {
+                                getUser(username);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onDisconnect() {
+                        ViewDialog.hideProgress();
+                        ViewDialog.showAlertPopUp(OpprTwoApporchingMaturityActivity.this, reason, "Error");
+                        connectToBrokerButton.setEnabled(false);
+                    }
+
+                    @Override
+                    public void onException(Exception e) {
+
+                    }
+
+                    @Override
+                    public void onInternetStatusChanged(boolean status) {
+                        if (status) {
+                            setOpportunityDetails(opportunityIdAppochingMaturity);
+                            if (facebookUserLoginFlag) {
+                                getUser(facebookUserLoginId);
+                            } else if (googleUserLoginFlag) {
+                                getUser(googleUserLoginId);
+                            } else {
+                                getUser(username);
+                            }
+                            connectToBrokerButton.setEnabled(true);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    public String convertMilliSecondsToDate(String milliseconds) {
+        long millisecond = Long.parseLong(milliseconds);
+        String dateString = DateFormat.format("MMM d,yyyy", new Date(millisecond)).toString();
+        Log.v("TAG", dateString);
+        return dateString;
+    }
+
+    public void connectToBroker() {
+        connectToBrokerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!status_code.equals("10000")) {
+                    showAlertPopUp(OpprTwoApporchingMaturityActivity.this, "Your opportunity details are shared with the Broker.Broker will contact you shortly.", "Broker Already Contacted");
+                } else {
+                    showDialog();
+                }
+            }
+        });
+    }
+
+    public void showDialog() {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(OpprTwoApporchingMaturityActivity.this);
+        LayoutInflater inflater = ((Activity) OpprTwoApporchingMaturityActivity.this).getLayoutInflater();
+        final View myDialog = inflater.inflate(R.layout.custom_dialog_broker_cnt, null);
+        alertDialogBuilder.setView(myDialog);
+        alertDialogBuilder.setCancelable(false);
+        TextView titleTextView = (TextView) myDialog.findViewById(R.id.titleTextView);
+        TextView close = (TextView) myDialog.findViewById(R.id.closeButton);
+        final CheckBox phnCheckBox = (CheckBox) myDialog.findViewById(R.id.radioButtonPhn);
+        final CheckBox emailCheckBox = (CheckBox) myDialog.findViewById(R.id.radioButtonEmail);
+        final TextView errorTextView = (TextView) myDialog.findViewById(R.id.errorTextView);
+
+
+        titleTextView.setText(R.string.how_broker_connect);
+        ContactPreferncesRadioGroup = (RadioGroup) myDialog.findViewById(R.id.ContactPreferncesRadioGroup);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+//        communication_pref = "Phone";
+
+        Button dialogButton = (Button) myDialog.findViewById(R.id.btn_dialog);
+        phnCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                communication_pref = "Phone";
+                errorTextView.setVisibility(View.INVISIBLE);
+            }
+        });
+        emailCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                communication_pref = "Email";
+                errorTextView.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+        if (cntPrefernce.equalsIgnoreCase("Email")) {
+            emailCheckBox.setChecked(true);
+        } else if (cntPrefernce.equalsIgnoreCase("Phone")) {
+            phnCheckBox.setChecked(true);
+        } else if (cntPrefernce.equalsIgnoreCase("Both")) {
+            emailCheckBox.setChecked(true);
+            phnCheckBox.setChecked(true);
+        }
+
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!phnCheckBox.isChecked() && !emailCheckBox.isChecked()) {
+                    errorTextView.setVisibility(View.VISIBLE);
+                    errorTextView.setText("Please select Contact Preference.");
+                } else {
+                    if (phnCheckBox.isChecked() && emailCheckBox.isChecked()) {
+                        communication_pref = "Phone,Email";
+                    } else if (phnCheckBox.isChecked()) {
+                        communication_pref = "Phone";
+                    } else if (emailCheckBox.isChecked()) {
+                        communication_pref = "Email";
+                    }
+                    HashMap<String, Object> stringObjectHashMap = new HashMap<String, Object>();
+                    stringObjectHashMap.put("opportunity_id", opportunityIdAppochingMaturity);
+                    stringObjectHashMap.put("communication_pref", communication_pref);
+                    stringObjectHashMap.put("lang", "en");
+                    stringObjectHashMap.put("req_from", "android");
+                    ErisCollectionManager.getInstance().callMethod("connectToBroker", new Object[]{stringObjectHashMap}, new ResultListener() {
+                        @Override
+                        public void onSuccess(String result) {
+                            Log.v("TAG", result);
+                            alertDialog.dismiss();
+                            showAlertPopUp(OpprTwoApporchingMaturityActivity.this, "A Mortgage Broker will" + "\n" + "contact you shortly.", "Request Sent");
+                        }
+
+                        @Override
+                        public void onError(String error, String reason, String details) {
+                            Log.v("TAG", reason);
+                        }
+                    });
+                }
+            }
+        });
+
+        alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public void showAlertPopUp(Activity activity, String msg, String title) {
+        try {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+            LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
+            final View myDialog = inflater.inflate(R.layout.custom_dailog, null);
+            alertDialogBuilder.setView(myDialog);
+            final AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            TextView titleTextView = (TextView) myDialog.findViewById(R.id.titleTextView);
+            TextView text = (TextView) myDialog.findViewById(R.id.text_dialog);
+            TextView close = (TextView) myDialog.findViewById(R.id.closeButton);
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            text.setText(msg);
+            titleTextView.setText(title);
+            Button dialogButton = (Button) myDialog.findViewById(R.id.btn_dialog);
+            dialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                    CommonConstants.dashboardReplaceFlag = true;
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void fixedTermDropdownClick() {
+        bestFixedRateRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(OpprTwoApporchingMaturityActivity.this);
+                builder.setItems(bestFixedRate, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, final int item) {
+
+                        HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+                        stringObjectHashMap.put("lang", "en");
+                        stringObjectHashMap.put("req_from", "android");
+
+                        ErisCollectionManager.getInstance().callMethod("getBestFixedVariableRatesList", new Object[]{stringObjectHashMap}, new ResultListener() {
+                            @Override
+                            public void onSuccess(String result) {
+                                Log.v("TAG", result);
+                                try {
+                                    JSONObject jsonObjectMain = new JSONObject(result);
+                                    JSONObject jsonObjectData = jsonObjectMain.getJSONObject("data");
+                                    JSONObject jsonObjectResult = jsonObjectData.getJSONObject("result");
+                                    JSONArray jsonArrayBestFixedRate = jsonObjectResult.getJSONArray("best_fixed_rate_list");
+                                    for (int i = 0; i < jsonArrayBestFixedRate.length(); i++) {
+                                        JSONObject row = jsonArrayBestFixedRate.getJSONObject(i);
+                                        if (row.getString("val").equals(bestFixedRate[item].toString())) {
+                                            Log.v("TAG", row.getString("rate") + "%");
+                                            Log.v("TAG", row.getString("val"));
+                                            bestFixedTermTextView.setText(row.getString("val"));
+                                            bestFixedInterestRateTextView.setText(row.getString("rate") + "%");
+                                        }
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                            @Override
+                            public void onError(String error, String reason, String details) {
+                                Log.v("TAG", reason);
+                            }
+                        });
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+    }
+
+    public void variableTermDropdownClick() {
+        bestVariableRateRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(OpprTwoApporchingMaturityActivity.this);
+                builder.setItems(bestFixedRate, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, final int item) {
+
+                        HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+                        stringObjectHashMap.put("lang", "en");
+                        stringObjectHashMap.put("req_from", "android");
+
+                        ErisCollectionManager.getInstance().callMethod("getBestFixedVariableRatesList", new Object[]{stringObjectHashMap}, new ResultListener() {
+                            @Override
+                            public void onSuccess(String result) {
+                                Log.v("TAG", result);
+                                try {
+                                    JSONObject jsonObjectMain = new JSONObject(result);
+                                    JSONObject jsonObjectData = jsonObjectMain.getJSONObject("data");
+                                    JSONObject jsonObjectResult = jsonObjectData.getJSONObject("result");
+                                    JSONArray jsonArrayBestFixedRate = jsonObjectResult.getJSONArray("best_variable_rate_list");
+                                    for (int i = 0; i < jsonArrayBestFixedRate.length(); i++) {
+                                        JSONObject row = jsonArrayBestFixedRate.getJSONObject(i);
+                                        if (row.getString("val").equals(bestFixedRate[item].toString())) {
+                                            Log.v("TAG", row.getString("rate") + "%");
+                                            Log.v("TAG", row.getString("val"));
+                                            bestVariableRatetermTextView.setText(row.getString("val"));
+                                            bestVariableInterestRateTextView.setText(row.getString("rate") + "%");
+                                        }
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(String error, String reason, String details) {
+                                Log.v("TAG", reason);
+                            }
+                        });
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+    }
+
+}

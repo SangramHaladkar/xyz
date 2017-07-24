@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="android-composer-1.0.2">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/40def41bdbf5ae524cb287c2bcafcc111d333f17/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/40def41bdbf5ae524cb287c2bcafcc111d333f17/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.intercom/android-composer/1.0.2/a3ac1e76cd68cd195066174cd01fbd51d3d7b84c/android-composer-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

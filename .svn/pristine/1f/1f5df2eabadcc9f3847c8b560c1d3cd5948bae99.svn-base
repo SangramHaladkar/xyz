@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TextViewPlus">
+        <attr name="customFont" format="string" /> />
+    </declare-styleable>
+    <declare-styleable name="GalleryTheme"></declare-styleable>
+    <declare-styleable name="GalleryTheme_android_galleryItemBackground"></declare-styleable>
+</resources>

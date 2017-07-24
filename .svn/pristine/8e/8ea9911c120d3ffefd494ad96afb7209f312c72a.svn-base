@@ -1,0 +1,26 @@
+package com.mobifilia.monitormymortgage.Common;
+
+/**
+ * Created by Sangram on 14/04/16.
+ */
+public class CommonConstants {
+    // TODO: Enable or disable LOG for improve performance - build release only.
+
+    public static final boolean mDebug = false;
+    public static boolean dashboardReplaceFlag = true;
+
+    //TODO:change or replace server URL's
+
+    public static final String stagingTekyzURL = "m3.staging1.tekyz.com";
+    public static final String stagingTekyzURLNew = "m3.staging2.tekyz.com";
+    public static final String mobifiliaDevURL = "m3dev.dev1.chavdi.com";
+    public static final String devSAASUrl="m3saas.dev1.chavdi.com";
+    public static final String localURLUJMachine = "10.0.1.9:3000";
+    public static final String localURLSarangMachine = "10.0.1.39:3000";
+    public static final String privacyPolicyURL = "http://" + stagingTekyzURLNew + "/privacy-policy.html";
+    public static final String termsAndConditionURL = "http://" + stagingTekyzURLNew + "/terms-condition.html";
+    public static final String faqURL = "http://" + stagingTekyzURLNew + "/faq.html";
+    // Final strings.
+    public static final String requestFrom="android";
+    public static final String language="en";
+}

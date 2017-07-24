@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+
+    <com.app.custom.IconTextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:textColor="@color/colorM3signin"
+        android:textSize="15sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/titleTextView"
+        android:background="@color/color_standard_green" />
+
+    <com.app.custom.IconTextView
+        android:id="@+id/text_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/requestquote_popup_message_one"
+        android:textColor="#666666"
+        android:textSize="13sp" />
+
+    <com.app.custom.IconTextView
+        android:id="@+id/text_dialog2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_dialog"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/requestquote_popup_message_two"
+        android:textColor="#666666"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_dialog2"
+        android:layout_centerHorizontal="true">
+
+        <com.app.custom.IconButton
+            android:id="@+id/btn_pre_approval"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/button_rounded"
+            android:padding="10dp"
+            android:text="@string/pre_approval"
+            android:textColor="@color/color_standard_green"
+            android:textSize="14sp" />
+
+
+        <com.app.custom.IconButton
+            android:id="@+id/btn_purchase"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/text_dialog"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toRightOf="@+id/btn_complete_later"
+            android:background="@drawable/button_rounded"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/purchase"
+            android:textColor="@color/color_standard_green"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <com.app.custom.IconTextView
+        android:id="@+id/closeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="7dp"
+        android:gravity="right"
+        android:paddingRight="14dp"
+        android:text="@string/alert_close_button"
+        android:textColor="@color/colorM3signin"
+        android:textSize="20dp" />
+
+</RelativeLayout>
+

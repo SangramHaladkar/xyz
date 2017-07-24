@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/helptwo">
+
+    <com.app.custom.IconTextView
+        android:id="@+id/secureTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_toLeftOf="@+id/eastToUseTextView"
+        android:layout_toStartOf="@+id/eastToUseTextView"
+        android:drawableLeft="@drawable/check"
+        android:drawableStart="@drawable/check"
+        android:gravity="center"
+        android:text="@string/secure"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+    <com.app.custom.IconTextView
+        android:id="@+id/mobileTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/secureTextView"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_toEndOf="@+id/eastToUseTextView"
+        android:layout_toRightOf="@+id/eastToUseTextView"
+        android:drawableLeft="@drawable/check"
+        android:drawableStart="@drawable/check"
+        android:gravity="center"
+        android:text="@string/mobile"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+    <com.app.custom.IconTextView
+        android:id="@+id/eastToUseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mobileTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/check"
+        android:drawableStart="@drawable/check"
+        android:gravity="center"
+        android:text="@string/easy_to_use"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+
+
+    <ImageView
+        android:id="@+id/helpscreen_twoimageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eastToUseTextView"
+        android:layout_centerInParent="true"
+        android:src="@drawable/helpscreentwo"
+        android:layout_marginBottom="50dp"
+        android:visibility="invisible" />
+
+</RelativeLayout>

@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayoutChildEmail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/textview_border"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.99"
+        android:orientation="vertical">
+
+        <com.app.custom.IconTextView
+            android:id="@+id/mortgageNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Home Loan with Equitable Bank"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.app.custom.IconTextView
+                android:id="@+id/opportunityNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="7dp"
+                android:paddingLeft="2dp"
+                android:maxLines="1"
+                android:text="Apporching Maturity Opportunity"
+                android:textColor="@color/color_opportunity_available"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <com.app.custom.IconTextView
+                android:id="@+id/remeinderTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text=" Available"
+                android:textColor="@color/color_opportunity_available"
+                android:textSize="14sp"
+                android:textStyle="bold"
+
+                />
+        </LinearLayout>
+
+        <com.app.custom.IconTextView
+            android:id="@+id/updatedAtTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="left"
+            android:paddingLeft="2dp"
+            android:text="sample"
+            android:textColor="#CCCCCC"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_weight="0.10"
+        android:gravity="center"
+        android:orientation="vertical"
+
+        >
+
+        <ImageView
+            android:id="@+id/navigationTextView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/forwardicon"
+            android:textColor="#CCCCCC"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:contentDescription="Forword icon" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,148 @@
+package com.mobifilia.monitormymortgage.BaseClasses;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.mobifilia.monitormymortgage.Common.CommonConstants;
+import com.mobifilia.monitormymortgage.GCM.RegistrationIntentService;
+import com.mobifilia.monitormymortgage.R;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+public class BaseActivity extends AppCompatActivity {
+    private static final String TAG = BaseActivity.class.getSimpleName();
+    private BroadcastReceiver pushNotificationMsgBroadcastReceiver;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private boolean isReceiverRegistered;
+    String email;
+    String statusCode;
+    private CallbackManager callbackManager;
+    String id;
+    Profile profile;
+    public static boolean facebookFlag = false;
+    public static String facebookUserLoginId;
+    HashMap<String, Object> stringObjectHashMap;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(BaseActivity.this);
+        setContentView(R.layout.activity_base);
+        pushNotificationMsgBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getExtras() != null) {
+                    String msg = intent.getExtras().getString("message");
+                    String title = intent.getExtras().getString("title");
+                    ViewDialog.showNotifications(BaseActivity.this, msg);
+                }
+            }
+        };
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
+//        profile = Profile.getCurrentProfile();
+//        if (profile != null) {
+//            LoginManager.getInstance().logOut();
+//        }
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                if (CommonConstants.mDebug) Log.v(TAG, "onSuccess");
+
+                final String accessToken = loginResult.getAccessToken().getToken();
+                if (CommonConstants.mDebug) Log.v(TAG, accessToken);
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,first_name,last_name,email,gender, birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                if (CommonConstants.mDebug) Log.v(TAG, "onCancel");
+                if (ViewDialog.kProgressHUD.isShowing()) {
+                    ViewDialog.hideProgress();
+                }
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                if (CommonConstants.mDebug) Log.v(TAG, error.toString());
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver();
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(pushNotificationMsgBroadcastReceiver);
+        isReceiverRegistered = false;
+        super.onPause();
+    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i("TAG", "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private void registerReceiver() {
+        if (!isReceiverRegistered) {
+            LocalBroadcastManager.getInstance(this).registerReceiver(pushNotificationMsgBroadcastReceiver, new IntentFilter("pushNotification"));
+            isReceiverRegistered = true;
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+}

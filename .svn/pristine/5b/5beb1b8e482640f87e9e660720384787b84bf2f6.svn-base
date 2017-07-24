@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/helpthree">
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/screen_three_title"
+       android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#FFF"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/screenThreeTitleTextView"
+        android:visibility="invisible"
+       />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/check"
+        android:id="@+id/imageViewCheck"
+        android:visibility="invisible"
+        android:layout_alignBottom="@+id/imageViewAttachment"
+        android:layout_toLeftOf="@+id/imageViewAttachment"
+        android:layout_toStartOf="@+id/imageViewAttachment" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/attachment"
+        android:visibility="invisible"
+        android:layout_alignBottom="@+id/attachDocumentTextview"
+        android:layout_toLeftOf="@+id/attachDocumentTextview"
+        android:layout_toStartOf="@+id/attachDocumentTextview"
+        android:id="@+id/imageViewAttachment" />
+
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/attachDocumentTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/screenThreeTitleTextView"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:layout_marginBottom="15dp"
+        android:text="@string/attach_documents"
+        android:textColor="#FFF"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:id="@+id/helpscreen_threeimageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/attachDocumentTextview"
+        android:layout_centerInParent="true"
+        android:src="@drawable/helpscreenthree"
+        android:layout_marginBottom="50dp"
+        android:visibility="invisible" />
+
+</RelativeLayout>

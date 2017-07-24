@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:text="Sample"
+        android:textColor="@color/colorM3signin" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/titleTextView"
+        android:background="@color/color_standard_green"
+        android:orientation="horizontal" />
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/dollerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/linearLayout5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="{fa-dollar}"
+        android:background="@drawable/circle"
+        android:textColor="@color/colorM3signin"
+        android:textSize="20sp"
+        android:gravity="center"/>
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/text_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dollerTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="3dp"
+        android:gravity="center_horizontal"
+        android:text="sample"
+        android:textColor="#666666"
+        android:textSize="15sp" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/text_dialog"
+    android:orientation="horizontal"
+    android:layout_centerHorizontal="true">
+    <com.mobifilia.custom.IconButton
+        android:id="@+id/btn_view_now"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/text_dialog"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/button_rounded"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/view_now"
+        android:textColor="@color/color_standard_green"
+        android:textSize="14sp" />
+
+
+    <com.mobifilia.custom.IconButton
+        android:id="@+id/btn_view_later"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/text_dialog"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@+id/btn_view_now"
+        android:background="@drawable/button_rounded"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+       android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/view_later"
+        android:textColor="@color/color_standard_green"
+        android:textSize="14sp" /></LinearLayout>
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/closeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="7dp"
+        android:gravity="right"
+        android:paddingRight="14dp"
+        android:text="@string/alert_close_button"
+        android:textColor="@color/colorM3signin"
+        android:textSize="20dp" />
+
+</RelativeLayout>
+

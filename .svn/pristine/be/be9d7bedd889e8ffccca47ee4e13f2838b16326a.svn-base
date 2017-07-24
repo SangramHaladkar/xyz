@@ -1,0 +1,79 @@
+package com.mobifilia.monitormymortgage.DataHolderClasses;
+
+/**
+ * Created by Sangram on 04/05/16.
+ */
+public class MortgageHolder {
+    public String mortgageId = "";
+    public String mortgageTitle = "";
+    public String mortgageOppStatus = "";
+    public String owner="";
+    public String lenderId="";
+    public String lenderName="";
+    public String lenderLogo="";
+    public String oppCreatedDate="";
+
+    public String getLenderId() {
+        return lenderId;
+    }
+
+    public void setLenderId(String lenderId) {
+        this.lenderId = lenderId;
+    }
+
+    public String getLenderLogo() {
+        return lenderLogo;
+    }
+
+    public void setLenderLogo(String lenderLogo) {
+        this.lenderLogo = lenderLogo;
+    }
+
+    public String getLenderName() {
+        return lenderName;
+    }
+
+    public void setLenderName(String lenderName) {
+        this.lenderName = lenderName;
+    }
+
+    public String getMortgageId() {
+        return mortgageId;
+    }
+
+    public void setMortgageId(String mortgageId) {
+        this.mortgageId = mortgageId;
+    }
+
+    public String getMortgageOppStatus() {
+        return mortgageOppStatus;
+    }
+
+    public void setMortgageOppStatus(String mortgageOppStatus) {
+        this.mortgageOppStatus = mortgageOppStatus;
+    }
+
+    public String getMortgageTitle() {
+        return mortgageTitle;
+    }
+
+    public void setMortgageTitle(String mortgageTitle) {
+        this.mortgageTitle = mortgageTitle;
+    }
+
+    public String getOppCreatedDate() {
+        return oppCreatedDate;
+    }
+
+    public void setOppCreatedDate(String oppCreatedDate) {
+        this.oppCreatedDate = oppCreatedDate;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+}

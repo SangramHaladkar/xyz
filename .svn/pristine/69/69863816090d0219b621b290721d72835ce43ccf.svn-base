@@ -1,0 +1,553 @@
+package com.mobifilia.monitormymortgage.Fragments;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.Html;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.eris.androidddp.ErisCollectionManager;
+import com.mobifilia.monitormymortgage.Activity.PostalCodeActivity;
+import com.mobifilia.monitormymortgage.BaseClasses.ToastMessage;
+import com.mobifilia.monitormymortgage.BaseClasses.ViewDialog;
+import com.mobifilia.monitormymortgage.Common.CommonConstants;
+import com.mobifilia.monitormymortgage.Common.GlobalMethods;
+import com.mobifilia.monitormymortgage.MainActivity;
+import com.mobifilia.monitormymortgage.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import im.delight.android.ddp.MeteorSingleton;
+import im.delight.android.ddp.ResultListener;
+
+
+public class FacebookRegisterFragment extends Fragment {
+    private static final String TAG = FacebookRegisterFragment.class.getSimpleName();
+    TextView termsAndConditionTextView;
+    TextView privacyPolicyTextView;
+    EditText firstNameEditText;
+    EditText lastNameEditText;
+    EditText emailEditText;
+    EditText phoneNumberEditText;
+    EditText postalCodeEditText;
+    CheckBox checkBox;
+    TextView errorMessage;
+    String facebookId;
+    String accessTokan;
+    Button btn_submit;
+    Context context;
+    ViewDialog viewDialog;
+    ToastMessage toastMessage;
+    String statusCode;
+    String verificationCodeJSON;
+    Button btn_verify;
+    EditText verificationCodeRegistration;
+    TextView closeButtonRegistration;
+    String verificationCode;
+    TextView errorMessageRegistrartionPopup;
+    TextView mobileNumberTextViewRegistration;
+    TextView codeDidntReceive;
+    ProgressDialog csprogress;
+    public static String userid;
+    public static boolean facebookFlag = false;
+    public static String facebookUserLoginId;
+    ArrayAdapter<String> dataAdapter = null;
+    ListView listView;
+    private String M3BaseSystemSuperBrokerAccountId = "";
+
+
+    public FacebookRegisterFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        context = FacebookRegisterFragment.this.getActivity();
+        viewDialog = new ViewDialog(this.getActivity());
+        toastMessage = new ToastMessage(FacebookRegisterFragment.this.getActivity());
+        csprogress = new ProgressDialog(FacebookRegisterFragment.this.getActivity());
+        getSuperBrokerId();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        (getActivity()).setTitle(R.string.register_with_facebook);
+        View view = inflater.inflate(R.layout.fragment_facebook_register, container, false);
+        initializeUIComponent(view);
+
+        submitButtonClick();
+        selectPostalCode();
+        facebookId = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FacebookId", "");
+        if (CommonConstants.mDebug) Log.v(TAG, "Facebook Id" + facebookId);
+        accessTokan = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("AccessTokan", "");
+        if (CommonConstants.mDebug) Log.v(TAG, "Facebook Access Tokan" + accessTokan);
+
+        /*Check facebook user first name*/
+        if (!PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FacebookFirstName", "").equalsIgnoreCase("")) {
+            firstNameEditText.setText(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FacebookFirstName", ""));
+            firstNameEditText.setEnabled(false);
+            firstNameEditText.setTextColor(ContextCompat.getColor(context,R.color.colorFaint));
+        } else {
+            firstNameEditText.setText("");
+        }
+        /*Check facebook user last name*/
+        if (!PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FacebookLastName", "").equalsIgnoreCase("")) {
+            lastNameEditText.setText(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FacebookLastName", ""));
+            lastNameEditText.setEnabled(false);
+            lastNameEditText.setTextColor(ContextCompat.getColor(context,R.color.colorFaint));
+        } else {
+            lastNameEditText.setText("");
+        }
+
+        /*Check Facebook user Email*/
+        if (!PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FacebookEmail", "").equalsIgnoreCase("")) {
+            emailEditText.setText(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FacebookEmail", ""));
+            emailEditText.setEnabled(false);
+            emailEditText.setTextColor(ContextCompat.getColor(context,R.color.colorFaint));
+        } else {
+            emailEditText.setText("");
+        }
+
+        termsAndConditionTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TermsAndConditionFragment termsAndConditionFragment = new TermsAndConditionFragment();
+                FragmentTransaction fragmentManager = getActivity().getSupportFragmentManager().beginTransaction();
+
+                fragmentManager.replace(R.id.container_facebook, termsAndConditionFragment).addToBackStack(termsAndConditionFragment.getClass().getName()).commit();
+
+//                Intent intent = new Intent(getActivity(), TermsAndConditionFragment.class);
+//                getActivity().startActivity(intent);
+            }
+        });
+
+        privacyPolicyTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PrivacyPolicyFragment privacyPolicyFragment = new PrivacyPolicyFragment();
+                FragmentTransaction fragmentManager = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentManager.replace(R.id.container_facebook, privacyPolicyFragment).addToBackStack(privacyPolicyFragment.getClass().getName()).commit();
+            }
+        });
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (checkBox.isChecked()) {
+                    errorMessage.setVisibility(View.INVISIBLE);
+                } else
+                    errorMessage.setVisibility(View.VISIBLE);
+            }
+        });
+
+        return view;
+    }
+    public void getSuperBrokerId() {
+        HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+        stringObjectHashMap.put("lang", "en");
+        stringObjectHashMap.put("req_from", "android");
+        ErisCollectionManager.getInstance().callMethod("getM3BaseSystemSuperBrokerAccountId", new Object[]{stringObjectHashMap}, new ResultListener() {
+            @Override
+            public void onSuccess(String result) {
+                Log.v(TAG + "superBrokerId", result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject jsonObjectData = jsonObject.getJSONObject("data");
+                    Log.v(TAG, jsonObjectData.getString("message"));
+                    JSONObject jsonObjectResult = jsonObjectData.getJSONObject("result");
+                    M3BaseSystemSuperBrokerAccountId = jsonObjectResult.getString("superbroker_id");
+                    Log.v(TAG, M3BaseSystemSuperBrokerAccountId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String error, String reason, String details) {
+                Log.v(TAG + "superBrokerId", reason);
+            }
+
+        });
+    }
+    public void submitButtonClick() {
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validation(v)) {
+                    if (!checkBox.isChecked()) {
+                        errorMessage.setVisibility(View.VISIBLE);
+                    } else {
+                        if (CommonConstants.mDebug) Log.v("TAG", "on success");
+                        HashMap<String, Object> stringObjectHashMap = new HashMap<String, Object>();
+                        stringObjectHashMap.put("type", "facebook");
+                        stringObjectHashMap.put("value", facebookId);
+                        stringObjectHashMap.put("email", emailEditText.getText().toString().trim());
+                        stringObjectHashMap.put("phone", phoneNumberEditText.getText().toString().trim());
+                        ErisCollectionManager.getInstance().callMethod("isUserExist", new Object[]{stringObjectHashMap}, new ResultListener() {
+                            @Override
+                            public void onSuccess(String s) {
+                                if (CommonConstants.mDebug) Log.v(TAG, s);
+                                try {
+                                    JSONObject jsonRootObject = new JSONObject(s);
+                                    if (jsonRootObject.getString("status").equals("true")) {
+                                        JSONObject jsonObject = jsonRootObject.getJSONObject("data");
+                                        if (jsonObject.getString("message").equals("User phone already exists")) {
+                                            ViewDialog.showAlertPopUp(FacebookRegisterFragment.this.getActivity(), "Entered Phone Number already exists.", "Error");
+                                        } else if (jsonObject.getString("message").equals("User email already exists")) {
+                                            ViewDialog.showAlertPopUp(FacebookRegisterFragment.this.getActivity(), "Entered Email already exists.", "Error");
+                                        }
+                                    } else if (jsonRootObject.getString("status").equals("false")) {
+                                        sendSMS();
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(String s, String s1, String s2) {
+                                if (CommonConstants.mDebug) Log.v(TAG, "onError" + s1);
+                            }
+                        });
+                    }
+                }
+
+            }
+        });
+    }
+
+    public void initializeUIComponent(View view) {
+        termsAndConditionTextView = (TextView) view.findViewById(R.id.termsAndConditionTextView);
+        privacyPolicyTextView = (TextView) view.findViewById(R.id.privacyPolicyTextView);
+        firstNameEditText = (EditText) view.findViewById(R.id.firstNameEditText);
+        lastNameEditText = (EditText) view.findViewById(R.id.lastNameEditText);
+        emailEditText = (EditText) view.findViewById(R.id.emailEditText);
+        phoneNumberEditText = (EditText) view.findViewById(R.id.phoneNumberEditText);
+        postalCodeEditText = (EditText) view.findViewById(R.id.postalCodeEditText);
+        checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+        errorMessage = (TextView) view.findViewById(R.id.errorMessage);
+        errorMessage.setVisibility(View.INVISIBLE);
+        btn_submit = (Button) view.findViewById(R.id.btn_submit);
+        listView = (ListView) view.findViewById(R.id.listView1);
+    }
+
+    public void selectPostalCode() {
+        postalCodeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v(TAG, "on postal code click");
+                Intent intent = new Intent(getActivity(), PostalCodeActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /* Get selected postal code data. */
+        if (requestCode == 1) {
+            if (data != null) {
+                String strPostalCode = data.getStringExtra("postal_code");
+                postalCodeEditText.setText(strPostalCode);
+            }
+        }
+    }
+
+    public boolean validation(View view) {
+        boolean bln = true;
+        try {
+
+            if (firstNameEditText.getText().toString().equals("") && lastNameEditText.getText().toString().equals("") && emailEditText.getText().toString().equals("")
+                    && phoneNumberEditText.getText().toString().equals("") && postalCodeEditText.getText().toString().equals("")) {
+                toastMessage.showToastMsg(R.string.enter_information_in_all_fields, Toast.LENGTH_LONG);
+                bln = false;
+            } else if (firstNameEditText.getText().toString().equals("")) {
+                firstNameEditText.requestFocus();
+                toastMessage.showToastMsg(R.string.enter_first_name, Toast.LENGTH_LONG);
+                bln = false;
+            } else if (lastNameEditText.getText().toString().equals("")) {
+                lastNameEditText.requestFocus();
+                toastMessage.showToastMsg(R.string.enter_last_name, Toast.LENGTH_LONG);
+                bln = false;
+            } else if (emailEditText.getText().toString().equals("")) {
+                emailEditText.requestFocus();
+                toastMessage.showToastMsg(R.string.enter_email, Toast.LENGTH_LONG);
+                bln = false;
+            } else if (!GlobalMethods.isValidEmailId(emailEditText.getText().toString())) {
+                emailEditText.requestFocus();
+                toastMessage.showToastMsg(R.string.enter_valid_email, Toast.LENGTH_LONG);
+                bln = false;
+            } else if (phoneNumberEditText.getText().toString().equals("")) {
+                phoneNumberEditText.requestFocus();
+                toastMessage.showToastMsg(R.string.enter_phone, Toast.LENGTH_LONG);
+                bln = false;
+            } else if (phoneNumberEditText.getText().toString().length() < 10) {
+                phoneNumberEditText.requestFocus();
+                toastMessage.showToastMsg(R.string.enter_valid_phone_number, Toast.LENGTH_LONG);
+                bln = false;
+            } else if (postalCodeEditText.getText().toString().equals("")) {
+                postalCodeEditText.requestFocus();
+                toastMessage.showToastMsg(R.string.please_enter_postal_code, Toast.LENGTH_LONG);
+                bln = false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bln;
+    }
+
+    public void sendSMS() {
+        HashMap<String, Object> listOfObject = new HashMap<String, Object>();
+        listOfObject.put("phone_number", "+91" + phoneNumberEditText.getText().toString().trim());
+        listOfObject.put("verification_type", "registration");
+        ErisCollectionManager.getInstance().callMethod("send_verification_sms", new Object[]{listOfObject}, new ResultListener() {
+            @Override
+            public void onSuccess(String jsonResponse) {
+                if (CommonConstants.mDebug) Log.v("TAG", jsonResponse);
+                try {
+                    JSONObject jsonRootObject = new JSONObject(jsonResponse);
+                    statusCode = jsonRootObject.getString("status");
+                    if (CommonConstants.mDebug) Log.v("TAG", statusCode);
+                    if (statusCode.equalsIgnoreCase("true")) {
+                        JSONObject jsonObject = jsonRootObject.getJSONObject("data");
+                        jsonObject.getString("code");
+                        jsonObject.getString("message");
+                        JSONObject jsonObjectResult = jsonObject.getJSONObject("result");
+                        verificationCodeJSON = jsonObjectResult.getString("verification_code");
+                        if (CommonConstants.mDebug) Log.v(TAG, verificationCodeJSON);
+                        alertPopupRegistration(context, R.string.title_phone_verification_registrartion);
+                    } else if (statusCode.equalsIgnoreCase("false")) {
+                        if (CommonConstants.mDebug) Log.v(TAG, "phone already exists");
+                        ViewDialog.showAlertPopUp(FacebookRegisterFragment.this.getActivity(), "Email or Phone Number already exist.", "Error");
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String errorCode, String error, String reason) {
+                if (CommonConstants.mDebug) Log.v("TAG", error);
+            }
+        });
+
+    }
+
+    public void alertPopupRegistration(Context context, int title) {
+        try {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            final View myDialog = inflater.inflate(R.layout.custom_dialog_verify_registration, null);
+            alertDialogBuilder.setView(myDialog);
+            final AlertDialog alertDialogRegistrationPhoneNumber = alertDialogBuilder.create();
+            alertDialogRegistrationPhoneNumber.show();
+            alertDialogRegistrationPhoneNumber.setCancelable(false);
+            btn_verify = (Button) myDialog.findViewById(R.id.btn_verify);
+            verificationCodeRegistration = (EditText) myDialog.findViewById(R.id.verificationCodeRegistration);
+            closeButtonRegistration = (TextView) myDialog.findViewById(R.id.closeButtonRegistration);
+            errorMessageRegistrartionPopup = (TextView) myDialog.findViewById(R.id.errorMessageTextViewRegistration);
+            mobileNumberTextViewRegistration = (TextView) myDialog.findViewById(R.id.mobileNumberTextViewRegistration);
+            mobileNumberTextViewRegistration.setText(phoneNumberEditText.getText().toString());
+            Typeface font = Typeface.createFromAsset(context.getAssets(), "fontawesome-webfont.ttf");
+            closeButtonRegistration.setTypeface(font);
+            codeDidntReceive = (TextView) myDialog.findViewById(R.id.codeDidntReceive);
+            String htmlString = "Didn't receive? <font color='#337ab7'><u> Resend Code</u></font>";
+            codeDidntReceive.setText(Html.fromHtml(htmlString));
+            TextView titleTextView = (TextView) myDialog.findViewById(R.id.titleTextView);
+            titleTextView.setText(title);
+            closeButtonRegistration.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialogRegistrationPhoneNumber.dismiss();
+                }
+            });
+            codeDidntReceive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    csprogress.setMessage("Sending SMS");
+                    csprogress.show();
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            resendSMS();
+                            csprogress.dismiss();
+                        }
+                    }, 3000);
+                }
+            });
+            verificationCodeRegistration.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    errorMessageRegistrartionPopup.setVisibility(View.INVISIBLE);
+                }
+            });
+            btn_verify.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    verificationCode = verificationCodeRegistration.getText().toString().trim();
+                    if (verificationCode.isEmpty()) {
+                        errorMessageRegistrartionPopup.setVisibility(View.VISIBLE);
+                        errorMessageRegistrartionPopup.setText(R.string.enter_verification_code);
+                    } else if (!verificationCodeJSON.equals(verificationCode)) {
+                        errorMessageRegistrartionPopup.setVisibility(View.VISIBLE);
+                        errorMessageRegistrartionPopup.setText(R.string.enter_valid_verification_code);
+                    } else {
+                        Boolean meteorConnectionStatus = MeteorSingleton.getInstance().isConnected();
+                        if (CommonConstants.mDebug) Log.v(TAG, meteorConnectionStatus.toString());
+                        Boolean strLoggedIn = MeteorSingleton.getInstance().isLoggedIn();
+                        if (CommonConstants.mDebug) Log.v("Login", strLoggedIn.toString());
+                        if (MeteorSingleton.getInstance().isConnected()) {
+
+                            HashMap<String, Object> values = new HashMap<>();
+                            values.put("firstname", firstNameEditText.getText().toString().trim());
+                            values.put("lastname", lastNameEditText.getText().toString().trim());
+                            values.put("phone", phoneNumberEditText.getText().toString().trim());
+                            values.put("postal_code", postalCodeEditText.getText().toString().trim());
+                            values.put("email", emailEditText.getText().toString().trim());
+                            values.put("linked_with_superbroker_id", M3BaseSystemSuperBrokerAccountId);
+                            values.put("is_active", "1");
+                            values.put("profile_type", "facebook");
+                            values.put("role", 2);
+                            values.put("oppr_notification_pref", "email");
+                            values.put("contact_pref", "email");
+                            values.put("notify_saving_per_month", "50");
+                            values.put("notify_saving_over_term", "5000");
+                            values.put("notify_rate_increase", "10");
+                            values.put("notify_until_maturity", "120");
+
+                            HashMap<String, Object> stringObjectHashMap = new HashMap<String, Object>();
+                            stringObjectHashMap.put("id", facebookId);
+                            stringObjectHashMap.put("socialType", "facebook");
+                            stringObjectHashMap.put("accessToken", accessTokan);
+                            stringObjectHashMap.put("profile", values);
+
+                            ErisCollectionManager.getInstance().callMethod("socialLoginWithAccessToken", new Object[]{stringObjectHashMap}, new ResultListener() {
+                                @Override
+                                public void onSuccess(String s) {
+                                    if (CommonConstants.mDebug)
+                                        Log.v(TAG, "onSuccess social login" + s);
+                                    try {
+                                        JSONObject jsonRootObject = new JSONObject(s);
+                                        jsonRootObject.getString("status");
+                                        if (jsonRootObject.getString("status").equals("true")) {
+                                            JSONObject jsonObject = jsonRootObject.getJSONObject("data");
+                                            jsonObject.getString("code");
+                                            jsonObject.getString("message");
+                                            JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+                                            jsonObject1.getString("type");
+                                            jsonObject1.getString("userId");
+                                            if (CommonConstants.mDebug)
+                                                Log.v(TAG, jsonObject1.getString("userId"));
+                                            facebookUserLoginId = jsonObject1.getString("userId");
+                                            facebookFlag = true;
+                                            PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).edit().putBoolean("FacebookUserLoginFlag", facebookFlag).commit();
+                                            PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).edit().putString("FacebookUserLoginId", facebookUserLoginId).commit();
+                                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            startActivity(intent);
+                                            getActivity().finish();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(String s, String s1, String s2) {
+                                    if (CommonConstants.mDebug)
+                                        Log.v(TAG, "onError social login " + s1);
+
+                                }
+                            });
+                        } else {
+                            viewDialog.showAlertPopUp(getActivity(), getResources().getString(R.string.error_connecting_server), "Error");
+                        }
+                    }
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void resendSMS() {
+        HashMap<String, Object> listOfObject = new HashMap<String, Object>();
+        listOfObject.put("phone_number", "+91" + phoneNumberEditText.getText().toString().trim());
+        listOfObject.put("verification_type", "registration");
+        ErisCollectionManager.getInstance().callMethod("send_verification_sms", new Object[]{listOfObject}, new ResultListener() {
+            @Override
+            public void onSuccess(String jsonResponse) {
+                if (CommonConstants.mDebug) Log.v(TAG, "Code Resend Successfully");
+                try {
+                    JSONObject jsonRootObject = new JSONObject(jsonResponse);
+                    statusCode = jsonRootObject.getString("status");
+                    if (CommonConstants.mDebug) Log.v("TAG", statusCode);
+                    if (statusCode.equalsIgnoreCase("true")) {
+                        JSONObject jsonObject = jsonRootObject.getJSONObject("data");
+                        jsonObject.getString("code");
+                        jsonObject.getString("message");
+                        JSONObject jsonObjectResult = jsonObject.getJSONObject("result");
+                        verificationCodeJSON = jsonObjectResult.getString("verification_code");
+                        if (CommonConstants.mDebug) Log.v(TAG, verificationCodeJSON);
+                    } else if (statusCode.equalsIgnoreCase("false")) {
+                        if (CommonConstants.mDebug) Log.v(TAG, "phone already exists");
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(String s, String s1, String s2) {
+                if (CommonConstants.mDebug) Log.v(TAG, "onError" + s1);
+            }
+        });
+    }
+
+
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/helpfour">
+
+    <com.app.custom.IconTextView
+        android:id="@+id/screenFourTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/screen_four_title"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+
+
+    <ImageView
+        android:id="@+id/helpscreen_fourimageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/screenFourTitleTextView"
+        android:layout_centerInParent="true"
+        android:src="@drawable/helpscreenfour"
+        android:visibility="invisible"
+        android:layout_marginBottom="50dp"
+        />
+
+</RelativeLayout>

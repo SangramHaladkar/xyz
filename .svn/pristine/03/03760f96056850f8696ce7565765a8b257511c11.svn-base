@@ -1,0 +1,35 @@
+package com.mobifilia.monitormymortgage.Common;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+
+import com.mobifilia.monitormymortgage.Activity.AddMortgageActivity;
+import com.mobifilia.monitormymortgage.R;
+
+/**
+ * Created by Sangram on 02/05/16.
+ */
+public class OnItemClickListenerListViewItem implements AdapterView.OnItemClickListener {
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Context context = view.getContext();
+
+        ImageView textViewItem = ((ImageView) view.findViewById(R.id.textViewItem));
+
+        // get the clicked item name
+      //  String listItemText = textViewItem.getText().toString();
+
+        // get the clicked item ID
+        String listItemId = textViewItem.getTag().toString();
+
+        // just toast it
+//        Toast.makeText(context, "Item: " + listItemText + ", Item ID: " + listItemId, Toast.LENGTH_SHORT).show();
+
+        ((AddMortgageActivity) context).alertDialogStores.cancel();
+
+    }
+}

@@ -1,0 +1,77 @@
+package com.mobifilia.monitormymortgage.Activity;
+
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
+
+import com.mobifilia.monitormymortgage.BaseClasses.ViewDialog;
+import com.mobifilia.monitormymortgage.R;
+
+public class OpprFourPrimeRateChangeActivity extends AppCompatActivity {
+    private Context context;
+    TextView currentPrimeRateTextView, newPrimeRateTextView, disclaimerTextView, amortizedBalanceTextView, currentPaymentTextView;
+    TextView informationTextView;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_prime_rate_change_opportunity);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        (this).setTitle("Prime Rate Change");
+        context = this;
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.previous, getApplicationContext().getTheme()));
+        } else {
+            toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.previous));
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        initializeUIComponent(context);
+        showPrimeInformationPopup();
+    }
+
+
+    private void initializeUIComponent(Context context) {
+        currentPrimeRateTextView=(TextView)findViewById(R.id.currentPrimeRateTextView);
+        newPrimeRateTextView=(TextView)findViewById(R.id.newPrimeRateTextView);
+        disclaimerTextView=(TextView)findViewById(R.id.disclaimerTextView);
+        amortizedBalanceTextView=(TextView)findViewById(R.id.amortizedBalanceTextView);
+        currentPaymentTextView=(TextView)findViewById(R.id.currentPaymentTextView);
+        String htmlString = "<font color='#3F51B5'><u>Disclaimer</u></font>";
+        disclaimerTextView.setText(Html.fromHtml(htmlString));
+        informationTextView=(TextView)findViewById(R.id.informationTextView);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        menu.findItem(R.id.icon).setVisible(true);
+        menu.findItem(R.id.icon).setEnabled(false);
+        menu.findItem(R.id.closeButton).setVisible(false);
+        return true;
+    }
+
+    private void showPrimeInformationPopup()
+    {
+        informationTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewDialog.showPopUpPrimeRate(OpprFourPrimeRateChangeActivity.this,"3.00%","0.25%","3.25%","+");
+            }
+        });
+    }
+}

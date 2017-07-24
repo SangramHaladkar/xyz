@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#324b72</color>
+    <color name="colorPrimaryDark">#002349</color>
+    <color name="colorAccent">#999999</color>
+    <color name="colorM3signin">#ffffff</color>
+    <color name="loginCredientialBackground">#FFFFFF</color>
+    <color name="facebookBackgroundColor">#3D5A98</color>
+    <color name="color_black">#000000</color>
+    <color name="color_very_strong_error_message">#26c281</color>
+    <color name="color_hyperlink">#26c281</color>
+    <color name="color_standard_green">#A0CF50</color>
+    <color name="opaque_back">#11000000</color>
+    <color name="color_broker_responce_pending">#E26A6A</color>
+    <color name="color_opportunity_available">#339966</color>
+    <color name="text_color">#41656D</color>
+    <color name="notification_background">#324b72</color>
+</resources>

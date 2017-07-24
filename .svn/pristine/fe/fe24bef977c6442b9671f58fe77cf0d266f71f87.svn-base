@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:text="Sample"
+        android:textColor="@color/colorM3signin" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/titleTextView"
+        android:background="@color/color_standard_green" />
+
+    <com.mobifilia.custom.IconEditText
+        android:id="@+id/lenderEditText"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleTextView"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="20dp"
+        android:maxLines="1"
+        android:maxLength="60"
+        android:singleLine="true"
+
+        android:gravity="center_horizontal"
+        android:hint="Enter name of lender"
+        android:textColor="#666666"
+        android:textSize="13sp" />
+        <requestFocus/>
+
+    <TextView
+        android:id="@+id/otherLenderErrorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_dialog"
+        android:layout_centerHorizontal="true"
+
+        android:gravity="center_horizontal"
+        android:text="sample"
+        android:textColor="@color/color_broker_responce_pending"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/lenderEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_rounded"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Okay"
+        android:textColor="#80A445"
+        android:textSize="14sp" />
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/closeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="7dp"
+        android:gravity="right"
+        android:paddingRight="14dp"
+        android:text="@string/alert_close_button"
+        android:textColor="@color/colorM3signin"
+        android:textSize="20dp" />
+
+</RelativeLayout>
+

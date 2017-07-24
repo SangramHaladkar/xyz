@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/icon"
+        android:icon="@mipmap/iconlogowhite"
+        android:orderInCategory="103"
+        android:title="@string/action_icon"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/badge"
+        app:showAsAction="always"
+        android:orderInCategory="102"
+        android:actionLayout="@layout/badge_menu"
+        android:title=""/>
+
+</menu>

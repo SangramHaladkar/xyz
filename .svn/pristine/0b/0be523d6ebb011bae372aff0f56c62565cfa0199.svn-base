@@ -1,0 +1,339 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--  TODO:Notify Me Text View  -->
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/fab_margin">
+
+            <com.mobifilia.custom.IconTextView
+                android:id="@+id/notifyMeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notify Me When"
+                android:textColor="@color/color_black"
+                android:textSize="16sp"
+
+                />
+        </RelativeLayout>
+
+        <!--  TODO:Saving Amount Per Month Layout  -->
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/relativeLayoutCurrentRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:background="@color/colorM3signin">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutChildCurrentDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_border"
+                android:orientation="vertical">
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/savingPerMonthTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/saving_per_month"
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="$"
+                        android:textColor="@color/color_black" />
+
+                    <com.mobifilia.custom.IconEditText
+                        android:id="@+id/actualSavingPerMonthTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="11dp"
+                        android:layout_marginLeft="2dp"
+                        android:background="@null"
+                        android:inputType="numberDecimal"
+                        android:maxLength="25"
+                        android:paddingRight="5dp"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <!--  TODO:Savings Amount Over the Remaining Term Layout  -->
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/relativeLayoutremainingTerm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@color/colorM3signin">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutChildRemainingTerm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_border"
+                android:orientation="vertical">
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/remainingTermTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/saving_over_remaining_term"
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="$"
+                        android:textColor="@color/color_black" />
+
+                    <com.mobifilia.custom.IconEditText
+                        android:id="@+id/actualremainingTermTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="11dp"
+                        android:layout_marginLeft="2dp"
+                        android:background="@null"
+                        android:inputType="numberDecimal"
+                        android:maxLength="25"
+                        android:paddingRight="5dp"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <!--  TODO:Rate Increase Term Layout  -->
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/relativeLayoutRateIncrease"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@color/colorM3signin">
+
+            <RelativeLayout
+                android:id="@+id/linearLayoutChildRateIncrease"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_border">
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/rateIncreaseTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/rate_increase"
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:id="@+id/rateIncreaseSpinnerRelativeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rateIncreaseTextView">
+
+                    <com.mobifilia.custom.IconTextView
+                        android:id="@+id/actualRateIncreaseTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="----"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                    <com.mobifilia.custom.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:text="{fa-caret-down}"
+                        android:textColor="@color/color_black"
+                        android:textSize="17dp" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <!--  TODO:Notify Me Layout  -->
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/relativeLayoutNotifyMe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@color/colorM3signin">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutChildNotifyMe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_border"
+                android:orientation="vertical">
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/notifyMeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/notify_me"
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
+                <com.mobifilia.custom.IconTextView
+                    android:id="@+id/notifyMeMaturityTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rateIncreaseTextView"
+                    android:layout_gravity="left"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="120 Days Until Maturity"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <RadioGroup
+                    android:id="@+id/myRadioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/notifyMeMaturityTextView">
+
+                    <RadioButton
+                        android:id="@+id/sound"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nighty_days_until_maturity" />
+
+                    <RadioButton
+                        android:id="@+id/vibration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/onetwenty_days_until_maturity" />
+
+                    <RadioButton
+                        android:id="@+id/silent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/onefifty_days_until_maturity" />
+                </RadioGroup>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+            <com.mobifilia.custom.IconButton
+                android:id="@+id/btn_edit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/errorMessage"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_rounded"
+                android:text="@string/edit_button"
+                android:textColor="#80A445"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
+
+            <com.mobifilia.custom.IconButton
+                android:id="@+id/btn_save"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/errorMessage"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_rounded"
+                android:text="@string/save_button"
+                android:textColor="#80A445"
+                android:textSize="16sp" />
+
+            <com.mobifilia.custom.IconButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/errorMessage"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_rounded"
+                android:text="@string/cancel_button"
+                android:textColor="#80A445"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

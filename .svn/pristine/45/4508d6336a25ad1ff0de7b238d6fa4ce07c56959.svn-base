@@ -1,0 +1,549 @@
+package com.mobifilia.monitormymortgage.BaseClasses;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.Html;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.mobifilia.monitormymortgage.Activity.NotificationListActivity;
+import com.mobifilia.monitormymortgage.Activity.SplashScreenActivity;
+import com.mobifilia.monitormymortgage.Common.CommonConstants;
+import com.mobifilia.monitormymortgage.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import im.delight.android.ddp.MeteorSingleton;
+import im.delight.android.ddp.ResultListener;
+
+/**
+ * Created by Sangram on 16/02/16.
+ */
+public class ViewDialog {
+    String newPassword;
+    String repeatPassword;
+    String phoneNumber;
+    String verification_Code;
+    TextView errorMessageTextView;
+    Button btn_ok_phoneNumber;
+    TextView mobileNumberTextView;
+    EditText newPasswordEditText;
+    EditText repeatPasswordEditText;
+    EditText phoneNumberEditText;
+    EditText verificationCode;
+    public String getVerification_Code;
+    String statusCode = "";
+    ToastMessage toastMessage;
+    ProgressDialog csprogress;
+    TextView errorTextView;
+    Typeface font_helvetica;
+    static ProgressDialog progressDialog;
+    static KProgressHUD kProgressHUD;
+    String countryCode;
+    SplashScreenActivity splashScreenActivity;
+    String pattern;
+    Context context;
+
+    public ViewDialog(Context context) {
+        this.context = context;
+    }
+
+
+    public static void showProgress(int title, Activity activity, int message) {
+
+        kProgressHUD = new KProgressHUD(activity);
+        kProgressHUD.create(activity);
+        kProgressHUD.setCancellable(false);
+        kProgressHUD.setLabel("Please wait");
+        kProgressHUD.setAnimationSpeed(2);
+        kProgressHUD.setDimAmount(0.5f);
+        kProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
+        kProgressHUD.show();
+    }
+
+    public static void hideProgress() {
+        kProgressHUD.dismiss();
+    }
+
+    public static void showNotifications(final Activity activity, String msg) {
+        AlertDialog.Builder Builder = new AlertDialog.Builder(activity)
+                .setTitle(R.string.my_notifications)
+                .setMessage(msg)
+                .setIcon(R.drawable.applogo)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(activity, NotificationListActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+        AlertDialog alertDialog = Builder.create();
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+    }
+
+    public static void showAlertPopUp(Activity activity, final String msg, String title) {
+        try {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+            LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
+            final View myDialog = inflater.inflate(R.layout.custom_dailog, null);
+            alertDialogBuilder.setView(myDialog);
+            final AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            alertDialog.setCancelable(false);
+            TextView titleTextView = (TextView) myDialog.findViewById(R.id.titleTextView);
+            TextView text = (TextView) myDialog.findViewById(R.id.text_dialog);
+            TextView close = (TextView) myDialog.findViewById(R.id.closeButton);
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            text.setText(msg);
+            titleTextView.setText(title);
+            Button dialogButton = (Button) myDialog.findViewById(R.id.btn_dialog);
+            dialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void showPopupAddMortgage(final Activity activity,  int title) {
+        try {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+            LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
+            final View myDialog = inflater.inflate(R.layout.custom_dialog_add_mortgage, null);
+            alertDialogBuilder.setView(myDialog);
+            final AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            alertDialog.setCancelable(false);
+            TextView titleTextView = (TextView) myDialog.findViewById(R.id.titleTextView);
+            TextView text = (TextView) myDialog.findViewById(R.id.text_dialog);
+            TextView close = (TextView) myDialog.findViewById(R.id.closeButton);
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            titleTextView.setText(title);
+            Button completeLaterButton = (Button) myDialog.findViewById(R.id.btn_complete_later);
+            Button completeNowButton = (Button) myDialog.findViewById(R.id.btn_complete_now);
+
+            completeLaterButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+//                    ShowImagesActivity.flagChanged=true;
+                    activity.finish();
+                }
+            });
+
+            completeNowButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public void showAlertPopUpForgotPassword(final Context context, int title) {
+
+        try {
+            kProgressHUD.dismiss();
+            csprogress.dismiss();
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            final View myDialog = inflater.inflate(R.layout.custom_dialog_forgot_password, null);
+            alertDialogBuilder.setView(myDialog);
+            final AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            toastMessage = new ToastMessage(context);
+            alertDialog.setCancelable(false);
+            errorMessageTextView = (TextView) myDialog.findViewById(R.id.errorMessageTextView);
+            newPasswordEditText = (EditText) myDialog.findViewById(R.id.newPasswordEditText);
+            newPasswordEditText.setTypeface(Typeface.DEFAULT);
+            newPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
+            repeatPasswordEditText = (EditText) myDialog.findViewById(R.id.repeatPasswordEditText);
+            repeatPasswordEditText.setTypeface(Typeface.DEFAULT);
+            repeatPasswordEditText.setTransformationMethod(new PasswordTransformationMethod());
+            errorTextView = (TextView) myDialog.findViewById(R.id.errorTextView);
+            newPasswordEditText.addTextChangedListener(mTextEditorWatcher);
+            font_helvetica = Typeface.createFromAsset(context.getAssets(), "HelveticaNeue-Regular.ttf");
+            errorTextView.setTypeface(font_helvetica);
+
+
+            TextView titleTextView = (TextView) myDialog.findViewById(R.id.titleTextView);
+            verificationCode = (EditText) myDialog.findViewById(R.id.verificationCode);
+            TextView close = (TextView) myDialog.findViewById(R.id.closeButtonForgetPassword);
+            TextView codeDidntReceive = (TextView) myDialog.findViewById(R.id.codeDidntReceive);
+            String htmlString = "Didn't receive? <font color='#337ab7'><u> Resend Code</u></font>";
+            codeDidntReceive.setText(Html.fromHtml(htmlString));
+
+            codeDidntReceive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    kProgressHUD = new KProgressHUD(context);
+                    kProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
+                    kProgressHUD.setCancellable(false);
+                    kProgressHUD.setAnimationSpeed(2);
+                    kProgressHUD.setDimAmount(0.5f);
+                    kProgressHUD.setLabel("Please wait...");
+                    kProgressHUD.show();
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            resendSMS();
+                            kProgressHUD.dismiss();
+                        }
+                    }, 3000);
+                }
+            });
+            Typeface font1 = Typeface.createFromAsset(context.getAssets(), "fontawesome-webfont.ttf");
+            close.setTypeface(font1);
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+            textWatcher(newPasswordEditText, errorMessageTextView);
+            textWatcher(repeatPasswordEditText, errorMessageTextView);
+            titleTextView.setText(title);
+            Button dialogButton = (Button) alertDialog.findViewById(R.id.btn_dialog);
+            if (dialogButton != null) {
+                dialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[@#$%^&+=])(?=\\S+$).{8,25}";
+                        newPassword = newPasswordEditText.getText().toString();
+                        repeatPassword = repeatPasswordEditText.getText().toString();
+                        verification_Code = verificationCode.getText().toString();
+                        if (newPassword.isEmpty()) {
+                            errorMessageTextView.setVisibility(View.VISIBLE);
+                            errorMessageTextView.setText(R.string.please_enter_password);
+                        } else if (repeatPassword.isEmpty()) {
+                            errorMessageTextView.setVisibility(View.VISIBLE);
+                            errorMessageTextView.setText(R.string.please_enter_confirm_password);
+                        } else if (newPassword.length() < 8) {
+                            errorMessageTextView.setVisibility(View.VISIBLE);
+                            errorMessageTextView.setText(R.string.password_eight_char_long);
+                        } else if (!newPassword.matches(pattern)) {
+                            errorMessageTextView.setVisibility(View.VISIBLE);
+                            errorMessageTextView.setText(R.string.alphanumeric_password);
+                        } else if (!newPassword.equals(repeatPassword)) {
+                            errorMessageTextView.setVisibility(View.VISIBLE);
+                            errorMessageTextView.setText(R.string.password_do_not_match);
+                        } else if (verification_Code.isEmpty()) {
+                            errorMessageTextView.setVisibility(View.VISIBLE);
+                            errorMessageTextView.setText(R.string.enter_verification_code);
+                        } else if (!getVerification_Code.equals(verification_Code.toString())) {
+                            errorMessageTextView.setVisibility(View.VISIBLE);
+                            errorMessageTextView.setText(R.string.enter_valid_verification_code);
+                        } else {
+                            HashMap<String, Object> stringObjectHashMap = new HashMap<String, Object>();
+                            stringObjectHashMap.put("forgot_data", phoneNumber);
+                            stringObjectHashMap.put("forgot_value", newPassword);
+                            MeteorSingleton.getInstance().call("setUserPassword", new Object[]{stringObjectHashMap}, new ResultListener() {
+                                @Override
+                                public void onSuccess(String s) {
+                                    if (CommonConstants.mDebug)
+                                        Log.v("TAG", "Password Updated Successfully");
+                                    alertDialog.dismiss();
+                                    toastMessage.showToastMsg(R.string.password_updated_successfully, Toast.LENGTH_LONG);
+
+                                }
+
+                                @Override
+                                public void onError(String s, String s1, String s2) {
+                                    if (CommonConstants.mDebug) Log.v("TAG", s1);
+                                }
+                            });
+
+
+                            alertDialog.dismiss();
+                        }
+                    }
+                });
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private final TextWatcher mTextEditorWatcher = new TextWatcher() {
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        public void afterTextChanged(Editable s) {
+
+            pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[@#$%^&+=])(?=\\S+$).{8,25}";
+            if (newPasswordEditText.getText().toString().matches(pattern)) {
+                errorTextView.setText(R.string.fa_info_circle_strong);
+                errorTextView.setTextColor(ContextCompat.getColor(context, R.color.color_standard_green));
+            } else {
+                errorTextView.setText(R.string.fa_info_circle_week);
+                errorTextView.setTextColor(Color.RED);
+            }
+        }
+    };
+
+    public void showAlertPopupPhoneNumber(final Context context, int title) {
+        try {
+            csprogress = new ProgressDialog(context);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            final View myDialog = inflater.inflate(R.layout.custom_dialog_phone_number, null);
+            alertDialogBuilder.setView(myDialog);
+            final AlertDialog alertDialogPhoneNumber = alertDialogBuilder.create();
+            alertDialogPhoneNumber.show();
+            alertDialogPhoneNumber.setCancelable(false);
+            phoneNumberEditText = (EditText) myDialog.findViewById(R.id.phoneNumberEditText);
+            btn_ok_phoneNumber = (Button) myDialog.findViewById(R.id.btn_ok_phoneNumber);
+            errorMessageTextView = (TextView) myDialog.findViewById(R.id.errorMessageTextView);
+            TextView titleTextView = (TextView) myDialog.findViewById(R.id.titleTextView);
+            titleTextView.setText(title);
+            TextView close = (TextView) myDialog.findViewById(R.id.closeButtonForgetPassword);
+
+
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialogPhoneNumber.dismiss();
+                }
+            });
+            textWatcher(phoneNumberEditText, errorMessageTextView);
+            btn_ok_phoneNumber.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    phoneNumber = phoneNumberEditText.getText().toString();
+                    if (phoneNumber.isEmpty()) {
+                        errorMessageTextView.setVisibility(View.VISIBLE);
+                        errorMessageTextView.setText(R.string.enter_email_phone);
+                    }/*else if (phoneNumber.length() < 10) {
+                        errorMessageTextView.setVisibility(View.VISIBLE);
+                        errorMessageTextView.setText(R.string.enter_valid_email_phone);
+                    }*/ else {
+                        kProgressHUD = new KProgressHUD(context);
+                        kProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
+                        kProgressHUD.setCancellable(false);
+                        kProgressHUD.setAnimationSpeed(2);
+                        kProgressHUD.setDimAmount(0.5f);
+                        kProgressHUD.setLabel("Please wait...");
+                        kProgressHUD.show();
+                        HashMap<String, Object> listOfObject = new HashMap<String, Object>();
+
+                        if (phoneNumber.contains("@")) {
+                            listOfObject.put("phone_number", phoneNumber);
+                        } else {
+                            listOfObject.put("phone_number", "+91" + phoneNumber);
+                        }
+                        listOfObject.put("verification_type", "forgot_password");
+                        MeteorSingleton.getInstance().call("send_verification_sms", new Object[]{listOfObject}, new ResultListener() {
+                            @Override
+                            public void onSuccess(final String jsonResponse) {
+                                if (CommonConstants.mDebug) Log.v("TAG", jsonResponse);
+                                try {
+                                    JSONObject jsonRootObject = new JSONObject(jsonResponse);
+                                    statusCode = jsonRootObject.getString("status");
+                                    if (CommonConstants.mDebug) Log.v("TAG", statusCode);
+                                    if (statusCode.equalsIgnoreCase("true")) {
+
+                                        JSONObject jsonObject = jsonRootObject.getJSONObject("data");
+                                        jsonObject.getString("code");
+                                        jsonObject.getString("message");
+                                        JSONObject jsonObjectResult = jsonObject.getJSONObject("result");
+                                        getVerification_Code = jsonObjectResult.getString("verification_code");
+                                        if (CommonConstants.mDebug)
+                                            Log.v("TAG", getVerification_Code);
+                                        showAlertPopUpForgotPassword(context, R.string.forgot_reset_password_step_two_title);
+                                        alertDialogPhoneNumber.dismiss();
+
+                                    } else if (statusCode.equalsIgnoreCase("false")) {
+                                        JSONObject jsonObjectError = jsonRootObject.getJSONObject("error");
+                                        String message = jsonObjectError.getString("message");
+                                        errorMessageTextView.setVisibility(View.VISIBLE);
+                                        errorMessageTextView.setText(message);
+                                        kProgressHUD.dismiss();
+//                                        if (message.contains("User is not registered"))
+//                                        {
+//
+//                                            errorMessageTextView.setVisibility(View.VISIBLE);
+//                                            errorMessageTextView.setText(R.string.user_not_found_with_email_or_phone);
+//                                            csprogress.dismiss();
+//
+//                                        }else if(message.contains("You have registered using a Social Login account. Please visit Facebook/Google website to reset your password."))
+//                                        {
+//                                        errorMessageTextView.setVisibility(View.VISIBLE);
+//                                        errorMessageTextView.setText(R.string.facebook_google_user_forgot_password);
+//                                        csprogress.dismiss();
+//                                        }
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(String errorCode, String error, String reason) {
+                                if (CommonConstants.mDebug) Log.v("TAG", error);
+                                errorMessageTextView.setVisibility(View.VISIBLE);
+                                errorMessageTextView.setText(error);
+                                kProgressHUD.dismiss();
+                            }
+                        });
+
+                    }
+                }
+            });
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        InputFilter filter = new InputFilter() {
+            boolean canEnterSpace = false;
+
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+
+                if (phoneNumberEditText.getText().toString().equals("")) {
+                    canEnterSpace = false;
+                }
+
+                StringBuilder builder = new StringBuilder();
+
+                for (int i = start; i < end; i++) {
+                    char currentChar = source.charAt(i);
+
+                    if (Character.isLetterOrDigit(currentChar) || currentChar == '_') {
+                        builder.append(currentChar);
+                        canEnterSpace = true;
+                    }
+
+                    if (Character.isWhitespace(currentChar) && canEnterSpace) {
+                        builder.append(currentChar);
+                    }
+                }
+                return builder.toString();
+            }
+
+        };
+
+    }
+
+
+    public void resendSMS() {
+        HashMap<String, Object> listOfObject = new HashMap<String, Object>();
+        if (phoneNumber.contains("@")) {
+            listOfObject.put("phone_number", phoneNumber);
+        } else {
+            listOfObject.put("phone_number", "+91" + phoneNumber);
+        }
+        listOfObject.put("verification_type", "forgot_password");
+        MeteorSingleton.getInstance().call("send_verification_sms", new Object[]{listOfObject}, new ResultListener() {
+            @Override
+            public void onSuccess(final String jsonResponse) {
+                if (CommonConstants.mDebug) Log.v("TAG", jsonResponse);
+//                                showAlertPopUpForgotPassword(context, "Forgot/reset Password : Step 2");
+//                                alertDialogPhoneNumber.dismiss();
+
+                try {
+                    JSONObject jsonRootObject = new JSONObject(jsonResponse);
+                    statusCode = jsonRootObject.getString("status");
+                    if (CommonConstants.mDebug) Log.v("TAG", statusCode);
+                    if (statusCode.equalsIgnoreCase("true")) {
+                        JSONObject jsonObject = jsonRootObject.getJSONObject("data");
+                        jsonObject.getString("code");
+                        jsonObject.getString("message");
+                        JSONObject jsonObjectResult = jsonObject.getJSONObject("result");
+                        getVerification_Code = jsonObjectResult.getString("verification_code");
+                        if (CommonConstants.mDebug) Log.v("TAG", getVerification_Code);
+
+                    } else if (statusCode.equalsIgnoreCase("false")) {
+                        errorMessageTextView.setVisibility(View.VISIBLE);
+                        errorMessageTextView.setText(R.string.user_not_found_with_email_or_phone);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String errorCode, String error, String reason) {
+                if (CommonConstants.mDebug) Log.v("TAG", error);
+
+            }
+        });
+    }
+
+    public void textWatcher(EditText editText, final TextView textView) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                textView.setVisibility(View.GONE);
+
+            }
+        });
+    }
+
+
+}

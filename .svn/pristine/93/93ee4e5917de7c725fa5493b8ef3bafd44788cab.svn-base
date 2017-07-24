@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/helpone">
+
+<com.mobifilia.custom.IconTextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Stay Informed of:"
+    android:textSize="18sp"
+    android:textColor="#FFF"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="20dp"
+    android:id="@+id/logoImageView"
+    android:visibility="invisible"/>
+
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rate_change"
+        android:drawableStart="@drawable/check"
+        android:gravity="center"
+        android:drawableLeft="@drawable/check"
+        android:textSize="14sp"
+        android:textColor="#FFF"
+        android:layout_below="@+id/logoImageView"
+        android:layout_toStartOf="@+id/sloganTextView"
+        android:layout_marginTop="20dp"
+        android:id="@+id/myMortgageMonitorTextView"
+        android:visibility="invisible"
+        android:layout_toLeftOf="@+id/sloganTextView" />
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/maturity_dates"
+        android:drawableStart="@drawable/check"
+        android:gravity="center"
+        android:drawableLeft="@drawable/check"
+        android:textColor="#FFF"
+        android:textSize="14sp"
+        android:id="@+id/textView3"
+        android:visibility="invisible"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_alignTop="@+id/myMortgageMonitorTextView"
+        android:layout_toRightOf="@+id/sloganTextView"
+        android:layout_toEndOf="@+id/sloganTextView" />
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:text="@string/savings"
+        android:drawableStart="@drawable/check"
+        android:gravity="center"
+        android:drawableLeft="@drawable/check"
+        android:textSize="14sp"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/sloganTextView" />
+    <ImageView
+        android:id="@+id/helpscreen_oneimageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/helpscreenone"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/sloganTextView" />
+
+</RelativeLayout>

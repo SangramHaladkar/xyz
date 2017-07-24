@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "834063826805",
+    "project_id": "monitormymortgage"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834063826805:android:87450bd758d6cac8",
+        "android_client_info": {
+          "package_name": "com.mobifilia.monitormymortgage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834063826805-57536orda48649td2qld4oqo6hk8ilrm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mobifilia.monitormymortgage",
+            "certificate_hash": "DF2A200A2BE0FBFAA25F6C9911D55DC04675C276"
+          }
+        },
+        {
+          "client_id": "834063826805-dbq0929autu7gc469hm3rtsha5oalr66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK09yK3M-VxhPiJTr3rwlJkV7tdcQQ22A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

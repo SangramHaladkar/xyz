@@ -1,0 +1,89 @@
+package com.mobifilia.custom;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.support.v4.content.ContextCompat;
+import android.util.AttributeSet;
+import android.widget.EditText;
+
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.internal.HasOnViewAttachListener;
+
+/**
+ * Created by Rohan Pawar on 21/04/16.
+ */
+public class IconEditText extends EditText implements HasOnViewAttachListener {
+
+    private HasOnViewAttachListenerDelegate delegate;
+
+    public IconEditText(Context context) {
+        super(context);
+        if (!isInEditMode()) {
+            init(null, context);
+        }
+    }
+
+    public IconEditText(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        if (!isInEditMode())
+            init(attrs, context);
+    }
+
+    public IconEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(attrs, context);
+    }
+
+    private void init(AttributeSet attrs, Context mContext) {
+        setTransformationMethod(null);
+        if (attrs != null) {
+
+            try {
+                TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomTextView);
+                String fontFamily = a.getString(R.styleable.CustomTextView_fontFamily);
+                String iconName = a.getString(R.styleable.CustomTextView_iconName);
+                int iconGravity = a.getInt(R.styleable.CustomTextView_iconGravity, 0);
+                int iconColor = a.getColor(R.styleable.CustomTextView_iconColor, ContextCompat.getColor(mContext, android.R.color.white));
+                int iconSize = a.getInt(R.styleable.CustomTextView_iconSize, 0);
+                boolean isChanged;
+
+                if (fontFamily != null) {
+                    CustomTypefaces.setTypeFaceFontFile(fontFamily);
+                    CustomTypefaces.setTypefacesToTextView(mContext, this);
+                    isChanged = true;
+                }
+                if (iconGravity > 0) {
+                    CustomTypefaces.setIconToEditTextView(mContext, iconName, this, iconSize, iconColor, iconGravity);
+                }
+                a.recycle();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        super.setText(Iconify.compute(getContext(), text, this), type);
+    }
+
+    @Override
+    public void setOnViewAttachListener(OnViewAttachListener listener) {
+        if (delegate == null) delegate = new HasOnViewAttachListenerDelegate(this);
+        delegate.setOnViewAttachListener(listener);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        delegate.onAttachedToWindow();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        delegate.onDetachedFromWindow();
+    }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--Login Activity-->
+
+    <string name="help_screen_one">Moniteur mon Hypothéquer</string>
+    <string name="continue_with">Continue avec</string>
+    <string name="fa_facebook_square">{fa-facebook-square}&#160;&#160;&#160;&#160;&#160;&#160;&#160;Facebook  </string>
+    <string name="username_hint">E-mail ou numéro de téléphone</string>
+    <string name="password_hint">Mot de passe</string>
+    <string name="forgot_or_reset_password">Mot de passe oublié?</string>
+    <string name="sign_in">Se connecter</string>
+    <string name="new_user">Nouvel utilisateur?</string>
+    <string name="create_M3_account">Créer un compte "\ u004D" "\ u00B3"</string>
+
+</resources>

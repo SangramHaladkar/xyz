@@ -1,0 +1,39 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mobifilia.monitormymortgage.Fragments.PrivacyPolicyFragment">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        >
+
+        <WebView
+            android:id="@+id/help_webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbars="none"
+            />
+        <!--<TextView-->
+        <!--android:id="@+id/privacyPolicyTextView"-->
+        <!--android:gravity="left"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:textColor="#666666"-->
+        <!--android:paddingRight="10dp"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:maxLines="20"-->
+        <!--android:lines="20"-->
+        <!--android:text="@string/terms_condition_text"/>-->
+
+
+    </RelativeLayout>
+
+</FrameLayout>

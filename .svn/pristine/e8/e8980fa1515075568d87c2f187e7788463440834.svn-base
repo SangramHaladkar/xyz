@@ -1,0 +1,264 @@
+package com.mobifilia.monitormymortgage.Fragments;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.eris.androidddp.ErisCollectionManager;
+import com.eris.androidddp.ErisConnectionListener;
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.mobifilia.monitormymortgage.Activity.AddMortgageActivity;
+import com.mobifilia.monitormymortgage.Adapters.MortgageAdapter;
+import com.mobifilia.monitormymortgage.BaseClasses.ViewDialog;
+import com.mobifilia.monitormymortgage.Common.CommonConstants;
+import com.mobifilia.monitormymortgage.DataHolderClasses.MortgageHolder;
+import com.mobifilia.monitormymortgage.MainActivity;
+import com.mobifilia.monitormymortgage.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import im.delight.android.ddp.ResultListener;
+
+
+public class MyDashboardFragment extends Fragment {
+    private Button btn_add_mortgage, btn_notification_settings;
+    RelativeLayout relativeLayout;
+    ListView mortgageList;
+    public ArrayList<MortgageHolder> mortgageHolderArrayList;
+    public static final String LOGTAG = "MyDashboardFragment";
+    MortgageAdapter mortgageAdapter;
+    String facebookUserLoginId;
+    boolean facebookUserLoginFlag;
+    String googleUserLoginId;
+    boolean googleUserLoginFlag;
+    String username;
+    KProgressHUD kProgressHUD;
+    ImageView calloutImageView;
+    TextView startTextView;
+    FrameLayout frameLayout;
+
+
+    public MyDashboardFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((MainActivity) getActivity()).setTitle(R.string.my_dashboard_fragment);
+        mortgageHolderArrayList = new ArrayList<MortgageHolder>();
+        showProgressDialog();
+        facebookUserLoginId = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FacebookUserLoginId", "");
+        facebookUserLoginFlag = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("FacebookUserLoginFlag", false);
+        googleUserLoginId = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("GoogleUserLoginId", "");
+        googleUserLoginFlag = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("GoogleUserLoginFlag", false);
+        username = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("username", "");
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootview = inflater.inflate(R.layout.fragment_my_dashboard_new_design, container, false);
+        initialiseUIComponent(rootview);
+        getMortgageList();
+        btn_notification_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NotificationSettingFragment notificationSettingFragment = new NotificationSettingFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container, notificationSettingFragment).commit();
+            }
+        });
+        btn_add_mortgage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyDashboardFragment.this.getActivity(), AddMortgageActivity.class);
+                startActivity(intent);
+            }
+        });
+        return rootview;
+    }
+
+    public void showProgressDialog() {
+        kProgressHUD = new KProgressHUD(this.getActivity());
+        KProgressHUD kProgressHUD = this.kProgressHUD.create(this.getActivity());
+        this.kProgressHUD.setCancellable(false);
+        this.kProgressHUD.setLabel("Loading Mortgage List");
+        this.kProgressHUD.setAnimationSpeed(2);
+        this.kProgressHUD.setDimAmount(0.5f);
+        this.kProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
+        this.kProgressHUD.show();
+    }
+
+
+    public void initialiseUIComponent(View view) {
+        btn_add_mortgage = (Button) view.findViewById(R.id.btn_add_mortgage);
+        btn_notification_settings = (Button) view.findViewById(R.id.btn_notification_settings);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayoutListAvailable);
+        calloutImageView = (ImageView) view.findViewById(R.id.calloutImageView);
+        startTextView = (TextView) view.findViewById(R.id.startTextView);
+        mortgageList = (ListView) view.findViewById(R.id.mortgageList);
+        frameLayout = (FrameLayout) view.findViewById(R.id.frameLayout);
+
+    }
+
+    public void getMortgageList() {
+        final HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+        if (facebookUserLoginFlag) {
+            stringObjectHashMap.put("user_id", facebookUserLoginId);
+        } else if (googleUserLoginFlag) {
+            stringObjectHashMap.put("user_id", googleUserLoginId);
+        } else {
+            stringObjectHashMap.put("user_id", username);
+        }
+        stringObjectHashMap.put("lang", "en");
+        stringObjectHashMap.put("req_from", "android");
+        ErisCollectionManager.getInstance().callMethod("getUserMortgages", new Object[]{stringObjectHashMap}, new ResultListener() {
+            @Override
+            public void onSuccess(String result) {
+                if (CommonConstants.mDebug) Log.v("TAG", "Result " + result);
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.getString("status").equalsIgnoreCase("true")) {
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                        JSONArray jsonArray = jsonObject1.getJSONArray("result");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+                            MortgageHolder mortgageHolder = new MortgageHolder();
+                            mortgageHolder.setMortgageId(jsonObject2.getString("mortgage_id"));
+                            if (CommonConstants.mDebug)
+                                Log.v("TAG Mortgage ID", "" + jsonObject2.getString("mortgage_id"));
+                            mortgageHolder.setMortgageTitle(jsonObject2.getString("title"));
+                            mortgageHolder.setMortgageOppStatus(jsonObject2.getString("mortgage_opportunity_status"));
+                            mortgageHolder.setOwner(jsonObject2.getString("owner"));
+                            mortgageHolder.setLenderId(jsonObject2.getString("lender_id"));
+                            if (jsonObject2.getString("lender_id").equalsIgnoreCase("1000")) {
+                                mortgageHolder.setLenderLogo("");
+                            } else {
+                                String lenderLogo = jsonObject2.getString("lender_logo");
+                                String newConvertedLenderString = lenderLogo.substring(23, lenderLogo.length());
+                                mortgageHolder.setLenderLogo(newConvertedLenderString);
+                            }
+                            mortgageHolder.setLenderName(jsonObject2.getString("lender_name"));
+                            mortgageHolder.setOppCreatedDate(jsonObject2.getString("opportunity_created_date"));
+                            mortgageHolderArrayList.add(mortgageHolder);
+                            relativeLayout.setBackgroundResource(R.drawable.dashboardbg);
+                            if (mortgageHolderArrayList.size() >= 5) {
+                                btn_add_mortgage.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        ViewDialog.showAlertPopUp(MyDashboardFragment.this.getActivity(), "Your account has 5 mortgages. You cannot add new mortgage.", "Mortgage count limit reached");
+                                    }
+                                });
+                            }
+                        }
+                        /*set adapter after for loop*/
+                        mortgageAdapter = new MortgageAdapter(MyDashboardFragment.this.getActivity(), mortgageHolderArrayList);
+
+                        mortgageList.setAdapter(mortgageAdapter);
+                        if (kProgressHUD.isShowing()) {
+                            kProgressHUD.dismiss();
+                        }
+
+                        mortgageList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                PrimaryResidenceFragment primaryResidenceFragment = new PrimaryResidenceFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("mortgageName", mortgageHolderArrayList.get(position).getMortgageTitle());
+                                bundle.putString("mortgageID", mortgageHolderArrayList.get(position).getMortgageId());
+                                String str = mortgageHolderArrayList.get(position).getLenderLogo();
+                                if (str.length() > 10) {
+                                    bundle.putString("lenderString", mortgageHolderArrayList.get(position).getLenderLogo());
+                                    bundle.putString("lenderid", mortgageHolderArrayList.get(position).getLenderId());
+                                } else {
+                                    bundle.putString("lenderString", "others");
+                                    bundle.putString("lenderid", "1000");
+                                }
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                primaryResidenceFragment.setArguments(bundle);
+                                fragmentManager.beginTransaction().replace(R.id.container, primaryResidenceFragment).commit();
+                                if (CommonConstants.mDebug)
+                                    Log.v("TAG", mortgageHolderArrayList.get(position).getMortgageId());
+                            }
+                        });
+                        if (CommonConstants.mDebug)
+                            Log.v(LOGTAG, mortgageHolderArrayList.toString());
+                    } else if (jsonObject.getString("status").equalsIgnoreCase("false")) {
+                        kProgressHUD.dismiss();
+                        mortgageList.setVisibility(View.GONE);
+                        frameLayout.setVisibility(View.VISIBLE);
+                        startTextView.setVisibility(View.VISIBLE);
+                        relativeLayout.setBackgroundResource(R.drawable.dashboard);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            @Override
+            public void onError(String error, final String reason, String details) {
+                if (CommonConstants.mDebug) Log.v("Error TAG", ""+error + reason);
+                ErisCollectionManager.getInstance().reconnectMeteor(new ErisConnectionListener() {
+                    @Override
+                    public void onConnect(boolean value) {
+                        if (value) {
+                            getMortgageList();
+                        }
+                    }
+
+                    @Override
+                    public void onDisconnect() {
+                        if (reason.equalsIgnoreCase("Please Check your network Connection")) {
+                            ViewDialog.showAlertPopUp(MyDashboardFragment.this.getActivity(), "Please Check your network Connection", "Error");
+                        }
+                        if (kProgressHUD.isShowing()) {
+                            kProgressHUD.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onException(Exception e) {
+
+                    }
+
+                    @Override
+                    public void onInternetStatusChanged(boolean status) {
+                        if (status) {
+                            getMortgageList();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (kProgressHUD.isShowing()) {
+            kProgressHUD.dismiss();
+        }
+    }
+}

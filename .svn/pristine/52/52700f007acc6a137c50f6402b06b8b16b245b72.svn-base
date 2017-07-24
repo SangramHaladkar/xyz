@@ -1,0 +1,116 @@
+package com.mobifilia.monitormymortgage.Activity;
+
+import android.content.pm.ActivityInfo;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.mobifilia.monitormymortgage.BaseClasses.BaseActivity;
+import com.mobifilia.monitormymortgage.Common.CommonConstants;
+import com.mobifilia.monitormymortgage.Fragments.GoogleRegisterFragment;
+import com.mobifilia.monitormymortgage.Fragments.PrivacyPolicyFragment;
+import com.mobifilia.monitormymortgage.Fragments.TermsAndConditionFragment;
+import com.mobifilia.monitormymortgage.R;
+
+public class GoogleRegisterActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener {
+
+    private GoogleApiClient mGoogleApiClient;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        setContentView(R.layout.activity_google_register);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.previous, getApplicationContext().getTheme()));
+        } else {
+            toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.previous));
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentReplace();
+            }
+        });
+        GoogleRegisterFragment googleRegisterFragment = new GoogleRegisterFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container_google, googleRegisterFragment).commit();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+    }
+
+    public void fragmentReplace() {
+        if (getSupportFragmentManager().findFragmentByTag(new TermsAndConditionFragment().getClass().getName()) != null) {
+            getSupportFragmentManager().popBackStack(new TermsAndConditionFragment().getClass().getName(),
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        } else if (getSupportFragmentManager().findFragmentByTag(new PrivacyPolicyFragment().getClass().getName()) != null) {
+            getSupportFragmentManager().popBackStack(new PrivacyPolicyFragment().getClass().getName(),
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        } else {
+            super.onBackPressed();
+            signOut();
+        }
+    }
+
+    public void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+
+                        // [START_EXCLUDE]
+                        if (CommonConstants.mDebug)  Log.v("MainActivity ", "Successfully logout from google" + status);
+                        PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("GoogleUserLoginId").apply();
+                        PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("GoogleUserLoginFlag").apply();
+
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        signOut();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_add_mortgage, menu);
+        menu.findItem(R.id.icon).setVisible(true);
+        menu.findItem(R.id.icon).setEnabled(false);
+        return true;
+    }
+}

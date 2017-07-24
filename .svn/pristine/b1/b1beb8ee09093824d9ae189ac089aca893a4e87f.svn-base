@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativeLayoutListAvailable"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/xhdpi">
+
+
+    <ListView
+        android:id="@+id/mortgageList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="10dp"
+        android:divider="@null"
+        android:dividerHeight="10dp"
+        android:drawSelectorOnTop="false"
+        android:scrollbars="vertical"
+
+        />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="10dp"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <com.mobifilia.custom.CustomTextView
+            android:id="@+id/startTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:fontFamily="HelveticaNeue-Regular.ttf"
+            android:layout_marginBottom="40dp"
+            android:text="How would you like to start?"
+            android:textColor="@color/colorM3signin"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:id="@+id/calloutImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:src="@drawable/calloutcentre"
+                 />
+
+            <com.mobifilia.custom.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="Tell us about your \n existing mortgage."
+                android:textSize="14sp"
+                app:fontFamily="HelveticaNeue-Regular.ttf"
+                android:textColor="@color/colorAccent"
+                android:layout_marginBottom="4dp"
+                />
+
+
+        </FrameLayout>
+
+        <com.mobifilia.custom.IconButton
+            android:id="@+id/btn_add_mortgage"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_above="@+id/btn_notification_settings"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_rounded"
+            android:gravity="center"
+            android:text="@string/add_mortgage"
+            android:textColor="#80A445"
+            android:textSize="16sp" />
+
+        <com.mobifilia.custom.IconButton
+            android:id="@+id/btn_notification_settings"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/button_rounded"
+            android:text="@string/notification_setting"
+            android:textColor="#80A445"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</RelativeLayout>
+
+

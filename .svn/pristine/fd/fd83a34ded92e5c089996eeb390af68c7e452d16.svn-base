@@ -1,0 +1,74 @@
+package com.mobifilia.monitormymortgage.Fragments;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.mobifilia.monitormymortgage.Adapters.MyRecyclerViewAdapter;
+import com.mobifilia.monitormymortgage.Common.DividerItemDecoration;
+import com.mobifilia.monitormymortgage.DataHolderClasses.DataObject;
+import com.mobifilia.monitormymortgage.MainActivity;
+import com.mobifilia.monitormymortgage.R;
+
+import java.util.ArrayList;
+
+public class HistoryFragment extends Fragment {
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private static String LOG_TAG = "RecyclerViewActivity";
+
+    public HistoryFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((MainActivity) getActivity()).setTitle(R.string.history_fragment);
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootview = inflater.inflate(R.layout.fragment_history, container, false);
+        mRecyclerView = (RecyclerView) rootview.findViewById(R.id.my_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+       // mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).build());
+        mLayoutManager = new LinearLayoutManager(HistoryFragment.this.getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new MyRecyclerViewAdapter(getDataSet());
+        mRecyclerView.setAdapter(mAdapter);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(HistoryFragment.this.getActivity(), LinearLayoutManager.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
+        return rootview;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MyRecyclerViewAdapter) mAdapter).setOnItemClickListener(new MyRecyclerViewAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Log.i(LOG_TAG, " Clicked on Item " + position);
+            }
+        });
+    }
+    private ArrayList<DataObject> getDataSet() {
+        ArrayList results = new ArrayList<DataObject>();
+        for (int index = 0; index < 5; index++) {
+            DataObject obj = new DataObject("Oakville House Mortgage" + index,
+                    "Added on Oct 1, 2015 " + index,index+" Opportunities");
+            results.add(index, obj);
+        }
+        return results;
+    }
+
+}

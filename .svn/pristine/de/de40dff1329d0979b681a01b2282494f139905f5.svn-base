@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/helpfive">
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        android:visibility="invisible" />
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/myMortgageMonitorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logoImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="7dp"
+        android:text="@string/monitor_my_mortgage"
+        android:textColor="#FFF"
+        android:textSize="22sp"
+        android:visibility="invisible" />
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/sloganTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/myMortgageMonitorTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="7dp"
+        android:gravity="center"
+        android:text="@string/make_your_mortgage_work_for_you"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/urlTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sloganTextView"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:textColor="@color/color_standard_green"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/urlTextView"
+        android:layout_marginBottom="60dp"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <com.mobifilia.custom.IconTextView
+            android:id="@+id/continueWithTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Continue With"
+            android:textColor="#FFF"
+            android:textSize="16sp"
+            android:layout_marginBottom="15dp"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            >
+
+            <com.mobifilia.custom.IconButton
+                android:id="@+id/FBbutton"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/facebook_btn_rounded"
+                android:text="@string/fa_facebook_square"
+                android:textColor="@color/colorM3signin"
+                android:textSize="17sp"
+                android:visibility="invisible"
+                />
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/googleButton"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                />
+        </LinearLayout>
+
+        <com.mobifilia.custom.IconButton
+            android:id="@+id/EmailButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="3dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/help_screen_five_email"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:visibility="invisible" />
+    </LinearLayout>
+</RelativeLayout>

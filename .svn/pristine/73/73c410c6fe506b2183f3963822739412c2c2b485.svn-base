@@ -1,0 +1,135 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff">
+
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/titleTextView"
+        android:gravity="center"
+        android:text="Sample"
+        android:inputType="textCapWords"
+        android:textColor="@color/colorM3signin"
+        android:background="@color/colorPrimary"
+        android:scaleType="fitCenter" />
+    <LinearLayout
+        android:layout_below="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/color_standard_green"/>
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:text="We have sent a verification code via SMS to the following mobile number:"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:layout_below="@+id/titleTextView" />
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/mobileNumberTextViewRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginBottom="3dp"
+        />
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mobileNumberTextViewRegistration"
+        android:text="Please enter the code to verify your account."
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        />
+    <com.mobifilia.custom.IconEditText
+        android:id="@+id/verificationCodeRegistration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:hint="Code"
+        android:background="@null"
+        android:maxLength="6"
+        android:textSize="17sp"
+        android:inputType="number"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        />
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/verificationCodeRegistration"
+        android:background="@color/color_standard_green" />
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/codeDidntReceive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/linearLayout4"
+        android:text="Didn't receive? Resend Code"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        />
+
+    <com.mobifilia.custom.IconTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorM3signin"
+        android:id="@+id/closeButtonRegistration"
+        android:textSize="20dp"
+        android:text="@string/alert_close_button"
+        android:layout_marginTop="7dp"
+        android:paddingRight="14dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="right"/>
+
+    <com.mobifilia.custom.IconTextView
+        android:id="@+id/errorMessageTextViewRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/codeDidntReceive"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textSize="11sp"
+        android:layout_marginBottom="6dp"
+        android:textColor="#e26a6a"
+        android:visibility="gone"
+        />
+
+
+    <com.mobifilia.custom.IconButton
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Verify"
+        android:textSize="14sp"
+        android:inputType="textCapWords"
+        android:id="@+id/btn_verify"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_below="@+id/errorMessageTextViewRegistration"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_rounded"
+        android:layout_centerHorizontal="true"
+        android:textColor="#80A445" />
+
+</RelativeLayout>
+

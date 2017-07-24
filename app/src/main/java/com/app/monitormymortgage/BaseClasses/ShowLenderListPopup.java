@@ -1,0 +1,102 @@
+package com.app.monitormymortgage.BaseClasses;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
+
+import com.eris.androidddp.ErisCollectionManager;
+import com.eris.androidddp.ResultListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+
+/**
+ * Created by Sangram on 03/05/16.
+ */
+public class ShowLenderListPopup {
+    List<Bitmap> lenderString;
+    static Context context;
+
+//public void showLenderList(Activity activity,List<Bitmap> list)
+//
+//{
+//
+//    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+//    LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
+//    final View myDialog = inflater.inflate(R.layout.lender_list, null);
+//    alertDialogBuilder.setView(myDialog);
+//    ArrayAdapterItem adapter = new ArrayAdapterItem(activity, R.layout.list_view_row_item, list);
+//    ListView listView=(ListView)myDialog.findViewById(R.id.lenderListView);
+//    listView.setAdapter(adapter);
+//    final AlertDialog alertDialog = alertDialogBuilder.create();
+//    alertDialog.show();
+//    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        @Override
+//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            Log.v("TAG","On Item click");
+//
+//        }
+//    });
+//
+//
+//}
+
+    public void getLenderList() {
+        HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+        stringObjectHashMap.put("lang", "en");
+        stringObjectHashMap.put("req_from", "android");
+
+        ErisCollectionManager.getInstance().callMethod("getLenderList", new Object[]{stringObjectHashMap}, new ResultListener() {
+            @Override
+            public void onSuccess(String result) {
+
+                Log.v("On success", result);
+                try {
+                    lenderString = new ArrayList<Bitmap>();
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.getString("status").equals("true")) {
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                        JSONArray jsonArray = jsonObject1.getJSONArray("result");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+                            if (!jsonObject2.getString("lender_logo").equalsIgnoreCase("other")) {
+                                String lenderStr = jsonObject2.getString("lender_logo");
+                                //String newLenderStr = lenderStr.replace("data:image/jpeg;base64,", "");
+
+                                String newLenderStr=lenderStr.substring(23,lenderStr.length());
+                                lenderString.add(base64(newLenderStr));
+                            }
+                        }
+                        // showPopUp(lenderString);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String error, String reason, String details) {
+                Log.v("On Error splash screen", reason);
+            }
+        });
+        //  base64(imageString);
+    }
+
+    public Bitmap base64(String base64String) {
+
+        byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    }
+
+
+
+}

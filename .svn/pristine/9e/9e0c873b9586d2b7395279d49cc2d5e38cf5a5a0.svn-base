@@ -1,0 +1,865 @@
+package com.mobifilia.monitormymortgage.Fragments;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.Html;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.eris.androidddp.ErisCollectionManager;
+import com.eris.androidddp.ErisConnectionListener;
+import com.mobifilia.monitormymortgage.Activity.SplashScreenActivity;
+import com.mobifilia.monitormymortgage.BaseClasses.ToastMessage;
+import com.mobifilia.monitormymortgage.BaseClasses.ViewDialog;
+import com.mobifilia.monitormymortgage.Common.CommonConstants;
+import com.mobifilia.monitormymortgage.Common.GlobalMethods;
+import com.mobifilia.monitormymortgage.DataHolderClasses.UserObject;
+import com.mobifilia.monitormymortgage.MainActivity;
+import com.mobifilia.monitormymortgage.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import im.delight.android.ddp.ResultListener;
+
+
+public class MyM3AccountFragment extends Fragment {
+    private static final String TAG = MyM3AccountFragment.class.getSimpleName();
+    private TextView opportunityNotificationPreferncesTextView;
+    private TextView actualContactPreferencesTextView;
+    private EditText actualFirstNameEditText;
+    private EditText actualLastNameEditText;
+    private EditText actualEmailEditText;
+    private EditText actualPhoneNumberEditText;
+    private Button btn_edit;
+    private Button btn_save;
+    private Button btn_cancel;
+    String phone;
+    String email;
+    ToastMessage toastMessage;
+    String statusCode;
+    String verificationCodeJSON;
+    EditText verificationCodeRegistration;
+    Button btn_verify;
+    TextView closeButtonRegistration;
+    String verificationCode;
+    TextView errorMessageRegistrartionPopup;
+    TextView mobileNumberTextViewRegistration;
+    TextView codeDidntReceive;
+    ProgressDialog csprogress;
+    String facebookUserLoginId;
+    boolean facebookUserLoginFlag;
+    String googleUserLoginId;
+    boolean googleUserLoginFlag;
+    RadioGroup ContactPreferncesRadioGroup;
+    AlertDialog alertDialog;
+    SplashScreenActivity splashScreenActivity;
+    List<CharSequence> list = new ArrayList<CharSequence>();
+    private ProgressBar spinner;
+    String username;
+    RelativeLayout opprNotificationPrefRelativeLayout;
+    RelativeLayout cntPrefRelativeLayout;
+    TextView socialUserErrorMessage;
+    View view;
+    String cntPrefernce;
+    String communication_pref;
+
+    public MyM3AccountFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((MainActivity) getActivity()).setTitle(R.string.my_account_fragment);
+        splashScreenActivity = new SplashScreenActivity();
+        toastMessage = new ToastMessage(this.getActivity());
+        list.add("Email");
+        list.add("App Notification");
+        list.add("SMS Notification");
+        view = getView();
+        ViewDialog.showProgress(R.string.help_screen_one, MyM3AccountFragment.this.getActivity(), R.string.progress_wait_while_loading);
+
+        facebookUserLoginId = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FacebookUserLoginId", "");
+        facebookUserLoginFlag = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("FacebookUserLoginFlag", false);
+        googleUserLoginId = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("GoogleUserLoginId", "");
+        googleUserLoginFlag = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("GoogleUserLoginFlag", false);
+        username = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("username", "");
+        Log.v(TAG + "username", username);
+        if (CommonConstants.mDebug) Log.v(TAG, "GoogleUserLoginId :" + googleUserLoginId);
+        if (CommonConstants.mDebug) Log.v(TAG, "GoogleUserLoginFlag :" + googleUserLoginFlag);
+        if (CommonConstants.mDebug) Log.v(TAG, "FacebookUserLoginId :" + facebookUserLoginId);
+        if (CommonConstants.mDebug) Log.v(TAG, "FacebookUserLoginFlag :" + facebookUserLoginFlag);
+        csprogress = new ProgressDialog(MyM3AccountFragment.this.getActivity());
+        if (facebookUserLoginFlag) {
+            if (CommonConstants.mDebug) Log.v(TAG, "true");
+        } else {
+            if (CommonConstants.mDebug) Log.v(TAG, "false");
+        }
+        System.out.println("Get Country Code :" + UserObject.getContactPreferences());
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             final Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        final View rootview = inflater.inflate(R.layout.fragment_my_m3_account, container, false);
+        initialiseUIComponent(rootview);
+        setUserData();
+        setVisibility();
+        spinner.setVisibility(View.VISIBLE);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setUserData();
+                btn_edit.setVisibility(View.GONE);
+                btn_save.setVisibility(View.VISIBLE);
+                btn_cancel.setVisibility(View.VISIBLE);
+                opprNotificationPrefRelativeLayout.setEnabled(true);
+                cntPrefRelativeLayout.setEnabled(true);
+                if (googleUserLoginFlag) {
+                    socialUserErrorMessage.setVisibility(View.VISIBLE);
+                    socialUserErrorMessage.setText(R.string.social_user_google_update_profile);
+                    actualFirstNameEditText.setEnabled(false);
+                    actualLastNameEditText.setEnabled(false);
+                    actualEmailEditText.setEnabled(false);
+                } else if (facebookUserLoginFlag) {
+                    socialUserErrorMessage.setVisibility(View.VISIBLE);
+                    socialUserErrorMessage.setText(R.string.social_user_facebook_update_profile);
+                    actualFirstNameEditText.setEnabled(false);
+                    actualLastNameEditText.setEnabled(false);
+                    actualEmailEditText.setEnabled(false);
+                } else {
+                    actualFirstNameEditText.setEnabled(true);
+                    actualFirstNameEditText.setTypeface(actualFirstNameEditText.getTypeface(), Typeface.ITALIC);
+                    actualLastNameEditText.setEnabled(true);
+                    actualLastNameEditText.setTypeface(actualLastNameEditText.getTypeface(), Typeface.ITALIC);
+                    actualEmailEditText.setEnabled(true);
+                    actualEmailEditText.setTypeface(actualEmailEditText.getTypeface(), Typeface.ITALIC);
+                }
+                actualPhoneNumberEditText.setEnabled(true);
+                actualPhoneNumberEditText.setTypeface(actualPhoneNumberEditText.getTypeface(), Typeface.ITALIC);
+                opprNotificationPrefRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDialog();
+                    }
+                });
+                cntPrefRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ContactPreferncesPopUp(MyM3AccountFragment.this.getActivity(), "Contact Preference");
+                    }
+                });
+                /* Hide keyboard */
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setUserData();
+                btn_edit.setVisibility(View.VISIBLE);
+                btn_save.setVisibility(View.GONE);
+                btn_cancel.setVisibility(View.GONE);
+                socialUserErrorMessage.setVisibility(View.INVISIBLE);
+                opprNotificationPrefRelativeLayout.setEnabled(false);
+                cntPrefRelativeLayout.setEnabled(false);
+                actualFirstNameEditText.setTypeface(actualFirstNameEditText.getTypeface(), Typeface.NORMAL);
+                actualFirstNameEditText.setEnabled(false);
+                actualLastNameEditText.setTypeface(actualLastNameEditText.getTypeface(), Typeface.NORMAL);
+                actualLastNameEditText.setEnabled(false);
+                actualEmailEditText.setTypeface(actualEmailEditText.getTypeface(), Typeface.NORMAL);
+                actualEmailEditText.setEnabled(false);
+                actualPhoneNumberEditText.setTypeface(actualPhoneNumberEditText.getTypeface(), Typeface.NORMAL);
+                actualPhoneNumberEditText.setEnabled(false);
+
+                //  Hide Keyboard.
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+            }
+        });
+
+        btnSaveClick();
+        spinner.setVisibility(View.GONE);
+        return rootview;
+    }
+
+    public void btnSaveClick()
+    {
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validation(v)) {
+                    if (!phone.equals(actualPhoneNumberEditText.getText().toString())) {
+                        sendSMS();
+                    } else {
+                        HashMap<String, Object> values2 = new HashMap<String, Object>();
+                        values2.put("email", actualEmailEditText.getText().toString().trim());
+                        values2.put("firstname", actualFirstNameEditText.getText().toString().trim());
+                        values2.put("lastname", actualLastNameEditText.getText().toString().trim());
+                        values2.put("phone", actualPhoneNumberEditText.getText().toString().trim());
+                        values2.put("phone_country_code", "+91");
+                        values2.put("oppr_notification_pref", opportunityNotificationPreferncesTextView.getText().toString().trim());
+                        values2.put("contact_pref", actualContactPreferencesTextView.getText().toString().trim());
+
+                        HashMap<String, Object> values1 = new HashMap<>();
+                        values1.put("updateType", "profile");
+                        if (facebookUserLoginFlag) {
+                            values1.put("_id", facebookUserLoginId);
+                        } else if (googleUserLoginFlag) {
+                            values1.put("_id", googleUserLoginId);
+                        } else {
+                            values1.put("_id", username);
+                        }
+                        values1.put("email", actualEmailEditText.getText().toString().trim());
+                        values1.put("profile", values2);
+                        ErisCollectionManager.getInstance().callMethod("updateUser", new Object[]{values1}, new ResultListener() {
+                            @Override
+                            public void onSuccess(String s) {
+                                if (CommonConstants.mDebug) Log.v(TAG, "onSuccess " + s);
+                                try {
+                                    JSONObject jsonRootObject = new JSONObject(s);
+                                    if (jsonRootObject.getString("status").equalsIgnoreCase("false")) {
+                                        JSONObject jsonObject = jsonRootObject.getJSONObject("error");
+                                        if (jsonObject.getString("code").equals("11003") || jsonObject.getString("code").equals("11023")) {
+                                            ViewDialog.showAlertPopUp(MyM3AccountFragment.this.getActivity(), "Entered Email already exists.", "Error");
+                                        }
+                                    } else {
+                                        actualFirstNameEditText.setText(actualFirstNameEditText.getText().toString());
+                                        setVisibility();
+                                        btn_edit.setVisibility(View.VISIBLE);
+                                        toastMessage.showToastMsg(R.string.profile_updated_successfully, Toast.LENGTH_LONG);
+                                        ViewDialog.hideProgress();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(String s, final String s1, String s2) {
+                                if (CommonConstants.mDebug) Log.v(TAG, "On Error Update :" + s1);
+                                ErisCollectionManager.getInstance().reconnectMeteor(new ErisConnectionListener() {
+                                    @Override
+                                    public void onConnect(boolean value) {
+                                        btnSaveClick();
+                                    }
+
+                                    @Override
+                                    public void onDisconnect() {
+                                        ViewDialog.showAlertPopUp(MyM3AccountFragment.this.getActivity(), s1, "Error");
+                                    }
+
+                                    @Override
+                                    public void onException(Exception e) {
+
+                                    }
+
+                                    @Override
+                                    public void onInternetStatusChanged(boolean status) {
+                                        btnSaveClick();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
+    }
+    public void setUserData() {
+
+        if (facebookUserLoginFlag) {
+            HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+            stringObjectHashMap.put("userId", facebookUserLoginId);
+            ErisCollectionManager.getInstance().callMethod("getUser", new Object[]{stringObjectHashMap}, new ResultListener() {
+                @Override
+                public void onSuccess(String jsonResponse) {
+                    if (CommonConstants.mDebug) Log.v(TAG, jsonResponse);
+                    try {
+                        JSONObject jsonRootObject = new JSONObject(jsonResponse);
+                        if (jsonRootObject.getString("status").equals("true")) {
+                            JSONObject jsonObjectData = jsonRootObject.getJSONObject("data");
+                            JSONObject jsonObjectResult = jsonObjectData.getJSONObject("result");
+                            actualEmailEditText.setText(jsonObjectResult.getString("email"));
+                            actualFirstNameEditText.setText(jsonObjectResult.getString("firstname"));
+                            actualLastNameEditText.setText(jsonObjectResult.getString("lastname"));
+                            actualPhoneNumberEditText.setText(jsonObjectResult.getString("phone"));
+                            phone = jsonObjectResult.getString("phone");
+                            email = jsonObjectResult.getString("email");
+                            Log.v(TAG, phone);
+                            Log.v(TAG, email);
+                            if (CommonConstants.mDebug) Log.v(TAG, "phone" + phone);
+                            opportunityNotificationPreferncesTextView.setText(jsonObjectResult.getString("oppr_notification_pref"));
+
+                            actualContactPreferencesTextView.setText(jsonObjectResult.getString("contact_pref"));
+                            ViewDialog.hideProgress();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String s, String s1, String s2) {
+                    if (CommonConstants.mDebug) Log.v(TAG, "On Error" + s1);
+                    ViewDialog.showAlertPopUp(MyM3AccountFragment.this.getActivity(), s1, "Error");
+                }
+            });
+        } else if (googleUserLoginFlag) {
+            HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+            stringObjectHashMap.put("userId", googleUserLoginId);
+            ErisCollectionManager.getInstance().callMethod("getUser", new Object[]{stringObjectHashMap}, new ResultListener() {
+                @Override
+                public void onSuccess(String result) {
+                    if (CommonConstants.mDebug) Log.v(TAG, result);
+                    try {
+                        JSONObject jsonRootObject = new JSONObject(result);
+                        if (jsonRootObject.getString("status").equals("true")) {
+                            JSONObject jsonObjectData = jsonRootObject.getJSONObject("data");
+                            JSONObject jsonObjectResult = jsonObjectData.getJSONObject("result");
+                            actualEmailEditText.setText(jsonObjectResult.getString("email"));
+                            actualFirstNameEditText.setText(jsonObjectResult.getString("firstname"));
+                            actualLastNameEditText.setText(jsonObjectResult.getString("lastname"));
+                            actualPhoneNumberEditText.setText(jsonObjectResult.getString("phone"));
+                            phone = jsonObjectResult.getString("phone");
+                            email = jsonObjectResult.getString("email");
+                            Log.v(TAG, phone);
+                            Log.v(TAG, email);
+                            if (CommonConstants.mDebug) Log.v(TAG, "phone" + phone);
+                            opportunityNotificationPreferncesTextView.setText(jsonObjectResult.getString("oppr_notification_pref"));
+                            actualContactPreferencesTextView.setText(jsonObjectResult.getString("contact_pref"));
+                            ViewDialog.hideProgress();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String error, String reason, String details) {
+                    if (CommonConstants.mDebug) Log.v(TAG, "On Error" + reason);
+                }
+            });
+
+        } else if (!facebookUserLoginFlag && !googleUserLoginFlag) {
+            facebookUserLoginFlag = false;
+            googleUserLoginFlag = false;
+            HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+            stringObjectHashMap.put("userId", username);
+            ErisCollectionManager.getInstance().callMethod("getUser", new Object[]{stringObjectHashMap}, new ResultListener() {
+                @Override
+                public void onSuccess(String s) {
+                    if (CommonConstants.mDebug) Log.v(TAG, s);
+                    try {
+                        JSONObject jsonRootObject = new JSONObject(s);
+                        if (jsonRootObject.getString("status").equals("true")) {
+                            JSONObject jsonObjectData = jsonRootObject.getJSONObject("data");
+                            JSONObject jsonObjectResult = jsonObjectData.getJSONObject("result");
+                            actualEmailEditText.setText(jsonObjectResult.getString("email"));
+                            actualFirstNameEditText.setText(jsonObjectResult.getString("firstname"));
+                            actualLastNameEditText.setText(jsonObjectResult.getString("lastname"));
+                            actualPhoneNumberEditText.setText(jsonObjectResult.getString("phone"));
+                            phone = jsonObjectResult.getString("phone");
+                            email = jsonObjectResult.getString("email");
+                            Log.v(TAG, phone);
+                            Log.v(TAG, email);
+                            opportunityNotificationPreferncesTextView.setText(jsonObjectResult.getString("oppr_notification_pref"));
+                            actualContactPreferencesTextView.setText(jsonObjectResult.getString("contact_pref"));
+                            ViewDialog.hideProgress();
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onError(String s, final String s1, String s2) {
+                    if (CommonConstants.mDebug) Log.v(TAG, s1);
+                    ErisCollectionManager.getInstance().reconnectMeteor(new ErisConnectionListener() {
+                        @Override
+                        public void onConnect(boolean value) {
+                            if (value)
+                                setUserData();
+                        }
+
+                        @Override
+                        public void onDisconnect() {
+                            ViewDialog.hideProgress();
+                            ViewDialog.showAlertPopUp(MyM3AccountFragment.this.getActivity(), s1, "Error");
+                        }
+
+                        @Override
+                        public void onException(Exception e) {
+
+                        }
+
+                        @Override
+                        public void onInternetStatusChanged(boolean status) {
+                            if (status)
+                                setUserData();
+                        }
+                    });
+
+                }
+            });
+        }
+    }
+
+    public void setVisibility() {
+        actualFirstNameEditText.setEnabled(false);
+        actualLastNameEditText.setEnabled(false);
+        actualEmailEditText.setEnabled(false);
+        opprNotificationPrefRelativeLayout.setEnabled(false);
+        cntPrefRelativeLayout.setEnabled(false);
+        actualPhoneNumberEditText.setEnabled(false);
+        btn_save.setVisibility(View.GONE);
+        btn_cancel.setVisibility(View.GONE);
+        socialUserErrorMessage.setVisibility(View.INVISIBLE);
+
+    }
+
+    public boolean validation(View view) {
+        boolean bln = true;
+
+        if (actualFirstNameEditText.getText().toString().equals("") && actualLastNameEditText.getText().toString().equals("") &&
+                actualEmailEditText.getText().toString().equals("") && actualPhoneNumberEditText.getText().toString().equals("")) {
+            toastMessage.showToastMsg(R.string.enter_information_in_all_fields, Toast.LENGTH_LONG);
+            bln = false;
+        } else if (actualFirstNameEditText.getText().toString().equals("")) {
+            toastMessage.showToastMsg(R.string.enter_first_name, Toast.LENGTH_LONG);
+            bln = false;
+        } else if (actualLastNameEditText.getText().toString().equals("")) {
+            toastMessage.showToastMsg(R.string.enter_last_name, Toast.LENGTH_LONG);
+            bln = false;
+        } else if (actualEmailEditText.getText().toString().equals("")) {
+            toastMessage.showToastMsg(R.string.enter_email, Toast.LENGTH_LONG);
+            bln = false;
+        } else if (!GlobalMethods.isValidEmailId(actualEmailEditText.getText().toString())) {
+            toastMessage.showToastMsg(R.string.enter_valid_email, Toast.LENGTH_LONG);
+            bln = false;
+        } else if (actualPhoneNumberEditText.getText().toString().equals("")) {
+            toastMessage.showToastMsg(R.string.enter_phone, Toast.LENGTH_LONG);
+            bln = false;
+        } else if (actualPhoneNumberEditText.getText().toString().length() < 10) {
+            toastMessage.showToastMsg(R.string.enter_valid_phone_number, Toast.LENGTH_LONG);
+            bln = false;
+        }
+
+        return bln;
+    }
+
+    public void sendSMS() {
+        HashMap<String, Object> listOfObject = new HashMap<String, Object>();
+        listOfObject.put("phone_number", "+91" + actualPhoneNumberEditText.getText().toString().trim());
+        listOfObject.put("verification_type", "registration");
+        ErisCollectionManager.getInstance().callMethod("send_verification_sms", new Object[]{listOfObject}, new ResultListener() {
+            @Override
+            public void onSuccess(String jsonResponse) {
+                if (CommonConstants.mDebug) Log.v("TAG", jsonResponse);
+                try {
+                    JSONObject jsonRootObject = new JSONObject(jsonResponse);
+                    statusCode = jsonRootObject.getString("status");
+                    if (CommonConstants.mDebug) Log.v("TAG", statusCode);
+                    if (statusCode.equalsIgnoreCase("true")) {
+                        JSONObject jsonObject = jsonRootObject.getJSONObject("data");
+                        jsonObject.getString("code");
+                        jsonObject.getString("message");
+                        JSONObject jsonObjectResult = jsonObject.getJSONObject("result");
+                        verificationCodeJSON = jsonObjectResult.getString("verification_code");
+                        if (CommonConstants.mDebug) Log.v(TAG, verificationCodeJSON);
+                        alertPopupRegistration(MyM3AccountFragment.this.getContext(), R.string.title_phone_verification_registrartion);
+                    } else if (statusCode.equalsIgnoreCase("false")) {
+                        if (CommonConstants.mDebug) Log.v(TAG, "phone already exists");
+                        ViewDialog.showAlertPopUp(MyM3AccountFragment.this.getActivity(), "Phone number already exist.", "Error");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String errorCode, String error, String reason) {
+                if (CommonConstants.mDebug) Log.v("TAG", error);
+            }
+        });
+
+    }
+
+    public void alertPopupRegistration(Context context, int title) {
+        try {
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            final View myDialog = inflater.inflate(R.layout.custom_dialog_verify_registration, null);
+            alertDialogBuilder.setView(myDialog);
+            final AlertDialog alertDialogRegistrationPhoneNumber = alertDialogBuilder.create();
+            alertDialogRegistrationPhoneNumber.show();
+            alertDialogRegistrationPhoneNumber.setCancelable(false);
+            btn_verify = (Button) myDialog.findViewById(R.id.btn_verify);
+            verificationCodeRegistration = (EditText) myDialog.findViewById(R.id.verificationCodeRegistration);
+            closeButtonRegistration = (TextView) myDialog.findViewById(R.id.closeButtonRegistration);
+            errorMessageRegistrartionPopup = (TextView) myDialog.findViewById(R.id.errorMessageTextViewRegistration);
+            mobileNumberTextViewRegistration = (TextView) myDialog.findViewById(R.id.mobileNumberTextViewRegistration);
+            mobileNumberTextViewRegistration.setText(actualPhoneNumberEditText.getText().toString());
+            codeDidntReceive = (TextView) myDialog.findViewById(R.id.codeDidntReceive);
+            String htmlString = "Didn't receive? <font color='#337ab7'><u> Resend Code</u></font>";
+            codeDidntReceive.setText(Html.fromHtml(htmlString));
+            TextView titleTextView = (TextView) myDialog.findViewById(R.id.titleTextView);
+            titleTextView.setText(title);
+            closeButtonRegistration.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialogRegistrationPhoneNumber.dismiss();
+                }
+            });
+
+            codeDidntReceive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    csprogress.setMessage("Sending SMS");
+                    csprogress.show();
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            resendSMS();
+                            csprogress.dismiss();
+                        }
+                    }, 3000);
+                }
+            });
+            verificationCodeRegistration.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    errorMessageRegistrartionPopup.setVisibility(View.INVISIBLE);
+                }
+            });
+            btn_verify.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    verificationCode = verificationCodeRegistration.getText().toString().trim();
+                    if (verificationCode.isEmpty()) {
+                        errorMessageRegistrartionPopup.setVisibility(View.VISIBLE);
+                        errorMessageRegistrartionPopup.setText(R.string.enter_verification_code);
+                    } else if (!verificationCodeJSON.equals(verificationCode)) {
+                        errorMessageRegistrartionPopup.setVisibility(View.VISIBLE);
+                        errorMessageRegistrartionPopup.setText(R.string.enter_valid_verification_code);
+                    } else {
+
+                        HashMap<String, Object> values2 = new HashMap<String, Object>();
+                        values2.put("email", actualEmailEditText.getText().toString().trim());
+                        values2.put("firstname", actualFirstNameEditText.getText().toString().trim());
+                        values2.put("lastname", actualLastNameEditText.getText().toString().trim());
+                        values2.put("phone", actualPhoneNumberEditText.getText().toString().trim());
+                        values2.put("phone_country_code", "+91");
+                        values2.put("oppr_notification_pref", opportunityNotificationPreferncesTextView.getText().toString().trim());
+                        values2.put("contact_pref", actualContactPreferencesTextView.getText().toString().trim());
+
+                        HashMap<String, Object> values1 = new HashMap<>();
+                        values1.put("updateType", "profile");
+                        if (facebookUserLoginFlag) {
+                            values1.put("_id", facebookUserLoginId);
+                        } else if (googleUserLoginFlag) {
+                            values1.put("_id", googleUserLoginId);
+                        } else {
+                            values1.put("_id", username);
+                        }
+
+                        values1.put("email", actualEmailEditText.getText().toString().trim());
+                        values1.put("profile", values2);
+
+                        ErisCollectionManager.getInstance().callMethod("updateUser", new Object[]{values1}, new ResultListener() {
+                            @Override
+                            public void onSuccess(String s) {
+                                if (CommonConstants.mDebug) Log.v(TAG, "onSuccess " + s);
+                                alertDialogRegistrationPhoneNumber.dismiss();
+                                actualFirstNameEditText.setText(actualFirstNameEditText.getText().toString());
+                                setVisibility();
+                                btn_edit.setVisibility(View.VISIBLE);
+                                toastMessage.showToastMsg(R.string.profile_updated_successfully, Toast.LENGTH_LONG);
+
+                            }
+
+                            @Override
+                            public void onError(String s, String s1, String s2) {
+                                if (CommonConstants.mDebug) Log.v(TAG, "onError " + s1);
+
+                            }
+                        });
+
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                    }
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void resendSMS() {
+        HashMap<String, Object> listOfObject = new HashMap<String, Object>();
+        listOfObject.put("phone_number", "+91" + actualPhoneNumberEditText.getText().toString().trim());
+        listOfObject.put("verification_type", "registration");
+        ErisCollectionManager.getInstance().callMethod("send_verification_sms", new Object[]{listOfObject}, new ResultListener() {
+            @Override
+            public void onSuccess(String jsonResponse) {
+                if (CommonConstants.mDebug) Log.v(TAG, "Code Resend Successfully");
+                try {
+                    JSONObject jsonRootObject = new JSONObject(jsonResponse);
+                    statusCode = jsonRootObject.getString("status");
+                    if (CommonConstants.mDebug) Log.v("TAG", statusCode);
+                    if (statusCode.equalsIgnoreCase("true")) {
+                        JSONObject jsonObject = jsonRootObject.getJSONObject("data");
+                        jsonObject.getString("code");
+                        jsonObject.getString("message");
+                        JSONObject jsonObjectResult = jsonObject.getJSONObject("result");
+                        verificationCodeJSON = jsonObjectResult.getString("verification_code");
+                        if (CommonConstants.mDebug) Log.v(TAG, verificationCodeJSON);
+                    } else if (statusCode.equalsIgnoreCase("false")) {
+                        if (CommonConstants.mDebug) Log.v(TAG, "phone already exists");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(String s, String s1, String s2) {
+                if (CommonConstants.mDebug) Log.v(TAG, "onError" + s1);
+            }
+        });
+    }
+
+    public void initialiseUIComponent(View view) {
+
+        opportunityNotificationPreferncesTextView = (TextView) view.findViewById(R.id.opportunityNotificationPreferncesTextView);
+        actualContactPreferencesTextView = (TextView) view.findViewById(R.id.actualContactPreferencesTextView);
+        actualFirstNameEditText = (EditText) view.findViewById(R.id.actualFirstNameEditText);
+        actualLastNameEditText = (EditText) view.findViewById(R.id.actualLastNameEditText);
+        actualEmailEditText = (EditText) view.findViewById(R.id.actualEmailEditText);
+        actualPhoneNumberEditText = (EditText) view.findViewById(R.id.actualPhoneNumberEditText);
+        btn_edit = (Button) view.findViewById(R.id.btn_edit);
+        btn_save = (Button) view.findViewById(R.id.btn_save);
+        btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
+        spinner = (ProgressBar) view.findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
+        opprNotificationPrefRelativeLayout = (RelativeLayout) view.findViewById(R.id.opprNotificationPrefRelativeLayout);
+        cntPrefRelativeLayout = (RelativeLayout) view.findViewById(R.id.cntPrefRelativeLayout);
+        socialUserErrorMessage = (TextView) view.findViewById(R.id.socialUserErrorMessage);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        setUserData();
+    }
+
+    public void showDialog() {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MyM3AccountFragment.this.getActivity());
+        LayoutInflater inflater = ((Activity) MyM3AccountFragment.this.getActivity()).getLayoutInflater();
+        final View myDialog = inflater.inflate(R.layout.custom_opprt_notification_pref, null);
+        alertDialogBuilder.setView(myDialog);
+        alertDialogBuilder.setCancelable(false);
+        TextView titleTextView = (TextView) myDialog.findViewById(R.id.titleTextView);
+        TextView close = (TextView) myDialog.findViewById(R.id.closeButton);
+        final CheckBox email = (CheckBox) myDialog.findViewById(R.id.email);
+        final CheckBox appNotifications = (CheckBox) myDialog.findViewById(R.id.appNotifications);
+        final CheckBox smsNotifications = (CheckBox) myDialog.findViewById(R.id.smsNotifications);
+        final TextView errorTextView = (TextView) myDialog.findViewById(R.id.errorTextView);
+
+
+        titleTextView.setText(R.string.opportunity_notification_prefernces);
+        ContactPreferncesRadioGroup = (RadioGroup) myDialog.findViewById(R.id.ContactPreferncesRadioGroup);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+            }
+        });
+        // communication_pref = "Phone";
+        cntPrefernce = opportunityNotificationPreferncesTextView.getText().toString();
+        Log.v("TAG", cntPrefernce);
+        Button dialogButton = (Button) myDialog.findViewById(R.id.btn_dialog);
+        email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                communication_pref = "Email";
+                errorTextView.setVisibility(View.INVISIBLE);
+            }
+        });
+        appNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                communication_pref = "App Notification";
+                errorTextView.setVisibility(View.INVISIBLE);
+            }
+        });
+        smsNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                communication_pref = "SMS Notification";
+                errorTextView.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+        if (cntPrefernce.equalsIgnoreCase("Email, App Notification, SMS Notification")) {
+            email.setChecked(true);
+            appNotifications.setChecked(true);
+            smsNotifications.setChecked(true);
+        } else if (cntPrefernce.equalsIgnoreCase("Email, App Notification")) {
+            email.setChecked(true);
+            appNotifications.setChecked(true);
+        } else if (cntPrefernce.equalsIgnoreCase("App Notification, SMS Notification")) {
+            appNotifications.setChecked(true);
+            smsNotifications.setChecked(true);
+        } else if (cntPrefernce.equalsIgnoreCase("Email")) {
+            email.setChecked(true);
+        } else if (cntPrefernce.equalsIgnoreCase("App Notification")) {
+            appNotifications.setChecked(true);
+        } else if (cntPrefernce.equalsIgnoreCase("SMS Notification")) {
+            smsNotifications.setChecked(true);
+        }
+
+
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!email.isChecked() && !appNotifications.isChecked() && !smsNotifications.isChecked()) {
+                    errorTextView.setVisibility(View.VISIBLE);
+                    errorTextView.setText("Please select Opportunity Notification Preference.");
+                } else {
+                    if (email.isChecked() && appNotifications.isChecked() && smsNotifications.isChecked()) {
+                        opportunityNotificationPreferncesTextView.setText("Email, App Notification, SMS Notification");
+                        alertDialog.dismiss();
+                    } else if (email.isChecked() && appNotifications.isChecked()) {
+                        opportunityNotificationPreferncesTextView.setText("Email, App Notification");
+                        alertDialog.dismiss();
+                    } else if (appNotifications.isChecked() && smsNotifications.isChecked()) {
+                        opportunityNotificationPreferncesTextView.setText("App Notification, SMS Notification");
+                        alertDialog.dismiss();
+                    } else if (email.isChecked()) {
+                        opportunityNotificationPreferncesTextView.setText("Email");
+                        alertDialog.dismiss();
+                    } else if (appNotifications.isChecked()) {
+                        opportunityNotificationPreferncesTextView.setText("App Notification");
+                        alertDialog.dismiss();
+                    } else if (smsNotifications.isChecked()) {
+                        opportunityNotificationPreferncesTextView.setText("SMS Notification");
+                        alertDialog.dismiss();
+                    }
+                }
+            }
+        });
+
+        alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public void ContactPreferncesPopUp(Activity activity, String title) {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MyM3AccountFragment.this.getActivity());
+        LayoutInflater inflater = ((Activity) MyM3AccountFragment.this.getActivity()).getLayoutInflater();
+        final View myDialog = inflater.inflate(R.layout.custom_dialog_cnt_prefernces, null);
+        alertDialogBuilder.setView(myDialog);
+        alertDialogBuilder.setCancelable(false);
+        TextView titleTextView = (TextView) myDialog.findViewById(R.id.titleTextView);
+        TextView close = (TextView) myDialog.findViewById(R.id.closeButton);
+        RadioButton radioButtonPhn = (RadioButton) myDialog.findViewById(R.id.radioButtonPhn);
+        RadioButton radioButtonEmail = (RadioButton) myDialog.findViewById(R.id.radioButtonEmail);
+        RadioButton radioButtonBoth = (RadioButton) myDialog.findViewById(R.id.radioButtonBoth);
+        titleTextView.setText(title);
+        ContactPreferncesRadioGroup = (RadioGroup) myDialog.findViewById(R.id.ContactPreferncesRadioGroup);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        Button dialogButton = (Button) myDialog.findViewById(R.id.btn_dialog);
+        dialogButton.setVisibility(View.GONE);
+
+        if (actualContactPreferencesTextView.getText().toString().equalsIgnoreCase("Phone")) {
+            radioButtonPhn.setChecked(true);
+        } else if (actualContactPreferencesTextView.getText().toString().equalsIgnoreCase("Email")) {
+            radioButtonEmail.setChecked(true);
+        } else {
+            radioButtonBoth.setChecked(true);
+        }
+
+        ContactPreferncesRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioButtonPhn:
+                        actualContactPreferencesTextView.setText("Phone");
+                        break;
+                    case R.id.radioButtonEmail:
+                        actualContactPreferencesTextView.setText("Email");
+                        break;
+                    case R.id.radioButtonBoth:
+                        actualContactPreferencesTextView.setText("Both");
+                        break;
+                }
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+}
+

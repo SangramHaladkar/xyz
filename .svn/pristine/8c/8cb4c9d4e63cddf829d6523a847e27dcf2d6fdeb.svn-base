@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/xhdpi"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.mobifilia.monitormymortgage.Activity.AddMortgageActivity"
+    tools:showIn="@layout/activity_add_mortgage">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/stepOneTextView"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:text="Step 1"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/colorM3signin" />
+
+        <Button
+            android:id="@+id/stepTwoTextView"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:text="Step 2"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textColor="@color/colorM3signin" />
+
+        <Button
+            android:id="@+id/stepThreeTextView"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:text="Step 3"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:textColor="@color/colorM3signin" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutStepOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:orientation="vertical">
+
+        <include layout="@layout/step_one_add_mortgage" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutStepTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutStepOne"
+        android:orientation="vertical">
+
+        <include layout="@layout/step_two_add_mortgage" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutStepThree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutStepOne"
+        android:orientation="vertical">
+
+        <include layout="@layout/step_three_add_mortgage" />
+    </LinearLayout>
+
+</RelativeLayout>
